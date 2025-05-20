@@ -286,4 +286,31 @@ public class SuscriptorDAO {
 		}
 		return false;
 	}
+    
+    public boolean deleteSuscriptor(String username) {
+		Connection con = AccesoBD.getConnection();
+		PreparedStatement ps = null;
+
+		String sql = "DELETE FROM suscriptores WHERE username = ?;";
+
+		try {
+			ps = con.prepareStatement(sql);
+
+			ps.setString(1, username);
+
+			if (ps.executeUpdate() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			AccesoBD.closeConnection(null, ps, con);
+		}
+
+		return false;
+	}
 }

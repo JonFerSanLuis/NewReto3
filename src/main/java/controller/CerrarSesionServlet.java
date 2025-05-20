@@ -25,8 +25,8 @@ public class CerrarSesionServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("usuario".equals(cookie.getName())) {
-                    cookie.setMaxAge(0);  // Eliminar la cookie
-                    cookie.setPath("/");  // Asegúrate de que la cookie sea eliminada en todo el dominio
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
                     response.addCookie(cookie);
                 }
             }

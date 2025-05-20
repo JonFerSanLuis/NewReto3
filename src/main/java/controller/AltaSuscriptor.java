@@ -8,6 +8,7 @@ import java.util.Calendar;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +62,6 @@ public class AltaSuscriptor extends HttpServlet {
 		Suscriptor suscriptor = new Suscriptor(0, username, estado, fecha_alta, tipo, password, correo, edad);
 		
 		if(suscriptorService.addSuscriptor(suscriptor)) {
-			response.sendRedirect("PerfilServlet");
 			Cupon c = new Cupon(); 
 			
 			Suscriptor s = new Suscriptor();
@@ -80,6 +80,12 @@ public class AltaSuscriptor extends HttpServlet {
 			c.setFechaCaducidad(fechaCaducidad);
 			CuponService cup = new CuponService();
 			cup.asignarCuponService(c);
+			
+			Cookie cookie = new Cookie("usuario", username);
+	        cookie.setPath("/");
+	        response.addCookie(cookie);
+	        
+	        response.sendRedirect("PerfilServlet");
 			
     	} else {
     		request.setAttribute("errorMensaje", "Error al registrar suscriptor. Inténtalo de nuevo.");

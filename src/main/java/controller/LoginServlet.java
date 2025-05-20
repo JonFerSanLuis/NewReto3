@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Cookie cookie = new Cookie("usuario", null);  // Establece la cookie "usuario" con valor null
 	    cookie.setMaxAge(0);  // Expira la cookie
-	    cookie.setPath("/");  // Asegúrate de que la cookie sea eliminada en todo el dominio
+	    cookie.setPath("/");
 	    response.addCookie(cookie);  // Elimina la cookie
 	    response.sendRedirect("login.jsp");  // Redirige al login
 	}

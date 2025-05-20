@@ -255,9 +255,16 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 					</table>
 				</div>
 			</section>
-			<form action="CerrarSesionServlet" method="post">
-				<button type="submit" class="btn btn-logout">Cerrar Sesión</button>
-			</form>
+			<div style="display: flex; gap: 10px;">
+			    <form action="CerrarSesionServlet" method="post">
+			        <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
+			    </form>
+			    
+			    <form action="EliminarSuscripcionServlet" method="post">
+			    	<input type="hidden" name="username" value="<%= username %>">
+			        <button type="submit" class="btn btn-danger">Eliminar Suscripción</button>
+			    </form>
+			</div>
 		</div>
 	</div>
 

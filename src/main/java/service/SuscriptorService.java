@@ -27,4 +27,8 @@ public class SuscriptorService {
 		Suscriptor suscriptor = SuscriptorDAO.getSuscriptorByNombre(username);
 		return suscriptor != null && "admin".equals(suscriptor.getTipo());
 	}
+	
+	public boolean deleteSuscriptor(String username) {
+		return suscriptorDao.deleteSuscriptor(username);
+	}
 }
