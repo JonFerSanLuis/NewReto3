@@ -61,7 +61,7 @@ public class AltaSuscriptor extends HttpServlet {
 		Suscriptor suscriptor = new Suscriptor(0, username, estado, fecha_alta, tipo, password, correo, edad);
 		
 		if(suscriptorService.addSuscriptor(suscriptor)) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("PerfilServlet");
 			Cupon c = new Cupon(); 
 			
 			Suscriptor s = new Suscriptor();
