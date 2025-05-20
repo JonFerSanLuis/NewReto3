@@ -62,6 +62,17 @@ public class AltaSuscriptor extends HttpServlet {
 		Suscriptor suscriptor = new Suscriptor(0, username, estado, fecha_alta, tipo, password, correo, edad);
 		
 		if(suscriptorService.addSuscriptor(suscriptor)) {
+			Cookie[] cookies = request.getCookies();
+
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if ("usuario".equals(cookie.getName())) {
+						cookie.setMaxAge(0);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+					}
+				}
+			}
 			Cupon c = new Cupon(); 
 			
 			Suscriptor s = new Suscriptor();
