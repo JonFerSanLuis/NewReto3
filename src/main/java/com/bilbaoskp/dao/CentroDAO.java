@@ -84,5 +84,30 @@ public class CentroDAO {
             // En caso de error, la conexión se cierra y hace rollback automático si no está commit
             throw e;
         }
-    }
-}
+	}
+            //Este metodo es para ayudar a verificar que el centro está en la base de datos
+            public Centro obtenerCentroPorCodigo(int codCentro) throws SQLException {
+                String sql = "SELECT * FROM centros WHERE cod_centro = ?";
+                Centro centro = null;
+
+                try (Connection con = AccesoBD.getConnection();
+                     PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.setInt(1, codCentro);  // Establece el valor del parámetro codCentro
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            centro = new Centro();
+                            centro.setCodCentro(rs.getInt("cod_centro"));
+                            centro.setNombre(rs.getString("nombre"));
+                            centro.setResponsable(rs.getString("responsable"));
+                            centro.setTipoCentro(rs.getString("tipo_suscriptor"));
+                            centro.setNumAlumnos(rs.getInt("num_alumnos"));
+                            centro.setEmail(rs.getString("email"));
+                            centro.setTelefono(rs.getString("telefono"));
+                            centro.setIdSuscriptor(rs.getInt("id_suscriptor"));
+                        }
+                    }
+                }
+
+                return centro;
+            }
+        }

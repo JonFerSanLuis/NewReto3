@@ -8,13 +8,11 @@ public class Centro {
 	private int numAlumnos;
     private String email;
     private String telefono;
-    private int idSuscriptor; // Relación con la tabla suscriptores
+    private int idSuscriptor; // Relacion con la tabla suscriptores
 
     // Constructores
     public Centro() {
     }
-
-    
 
     public Centro(int codCentro, String nombre, String responsable, String tipoCentro,
 			int numAlumnos, String email, String telefono) {
