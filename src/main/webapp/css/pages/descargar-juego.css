@@ -1,0 +1,371 @@
+/* Estilos específicos para la página de descarga del juego */
+.download-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.download-header {
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+  padding: 35px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 5px solid #333;
+}
+
+.download-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+  animation: pulse 15s infinite;
+}
+
+.download-title {
+  font-size: 36px;
+  color: white;
+  margin-bottom: 15px;
+  font-weight: 700;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.download-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: white;
+}
+
+.download-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
+  font-weight: 400;
+  position: relative;
+  max-width: 80%;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}
+
+.download-content {
+  padding: 40px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f4a261;
+}
+
+.section-title svg {
+  width: 24px;
+  height: 24px;
+  color: #f4a261;
+}
+
+.download-option {
+  background-color: #2196f3;
+  color: white;
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+}
+
+.download-option:hover {
+  background-color: #0d8bf2;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
+}
+
+.download-option svg {
+  width: 24px;
+  height: 24px;
+}
+
+.requirements-list {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.requirements-list h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.requirements-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.requirements-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.requirements-list li:last-child {
+  border-bottom: none;
+}
+
+.requirements-list li svg {
+  color: #f4a261;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.requirements-list .spec-name {
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.video-container {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  margin-bottom: 30px;
+  height: 100%;
+  min-height: 400px;
+  background-color: #000;
+}
+
+.video-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: all 0.5s;
+}
+
+.video-container:hover img {
+  transform: scale(1.03);
+  opacity: 0.6;
+}
+
+.video-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 50%);
+  pointer-events: none;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(244, 162, 97, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.3s;
+  box-shadow: 0 0 0 10px rgba(244, 162, 97, 0.2);
+  animation: pulse-play 2s infinite;
+}
+
+@keyframes pulse-play {
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 162, 97, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(244, 162, 97, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 162, 97, 0);
+  }
+}
+
+.play-button:hover {
+  background: rgba(231, 111, 81, 0.9);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.play-button::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 25px solid white;
+  margin-left: 5px;
+}
+
+.video-title {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  z-index: 3;
+}
+
+.video-description {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  z-index: 3;
+}
+
+.youtube-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+}
+
+.download-features {
+  margin-top: 30px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  background-color: #f8f9fa;
+}
+
+.feature-item:hover {
+  background-color: #f1f3f5;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #e8f5e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4caf50;
+  flex-shrink: 0;
+}
+
+.feature-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.feature-content h4 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.feature-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 0;
+}
+
+#toggleVideo:checked ~ .youtube-iframe {
+  display: block;
+}
+
+#toggleVideo:checked ~ .preview,
+#toggleVideo:checked ~ .video-title,
+#toggleVideo:checked ~ .video-description {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .video-container {
+    margin-top: 30px;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .download-header {
+    padding: 20px;
+  }
+
+  .download-title {
+    font-size: 24px;
+  }
+
+  .download-content {
+    padding: 20px;
+  }
+}
+
+/* ======== NUEVO: Estilos del selector de idioma ======== */
+.idioma-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  display: block;
+}
+
+.idioma-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+}

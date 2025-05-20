@@ -1,0 +1,167 @@
+/* Carrusel perfecto - sin bordes visibles */
+.carousel-container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: #000; /* Fondo negro para tapar cualquier pequeño error */
+}
+
+.carousel {
+  display: flex;
+  width: 300%;
+  height: 100%;
+  animation: slide 12s infinite linear; /* linear para movimiento fluido */
+  will-change: transform;
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  user-select: none;
+}
+
+/* Animación para deslizar */
+@keyframes slide {
+  0%, 29.999% {
+    transform: translateX(0);
+  }
+  30%, 33.333% {
+    transform: translateX(-100vw);
+  }
+  33.334%, 63.333% {
+    transform: translateX(-100vw);
+  }
+  63.334%, 66.666% {
+    transform: translateX(-200vw);
+  }
+  66.667%, 99.999% {
+    transform: translateX(-200vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Contenido encima del carrusel */
+.overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.Titulo_parrafo {
+  font-size: 48px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.overlay-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Botones */
+.boton-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.boton-container a, 
+.boton-container button {
+  background-color: #f4a261;
+  color: white;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.boton-container a:hover, 
+.boton-container button:hover {
+  background-color: #e76f51;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+  .overlay-content {
+    max-width: 600px;
+    padding: 30px;
+  }
+  .Titulo_parrafo {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .overlay-content {
+    width: 90%;
+    padding: 20px;
+  }
+  .Titulo_parrafo {
+    font-size: 28px;
+  }
+  .overlay-content p {
+    font-size: 16px;
+  }
+  .boton-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* --- NUEVO: Estilos para el menú de idiomas --- */
+.idioma-menu a {
+  color: white;               /* Letras blancas */
+  text-decoration: none;      /* Sin subrayado */
+  padding: 8px 12px;          /* Espaciado para mejor hover */
+  display: block;             /* Toda la línea clickable */
+}
+
+.idioma-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo blanquito translúcido */
+  text-decoration: none;                      /* Sin subrayado en hover */
+  color: white;                               /* Letra sigue blanca */
+  border-radius: 5px;                         /* Bordes redondeados */
+}
