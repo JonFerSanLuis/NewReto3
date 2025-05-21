@@ -62,8 +62,7 @@ public class getCupon extends HttpServlet {
             System.out.println("Usuario no logueado. Redirigiendo a login.jsp.");
             response.sendRedirect("login.jsp");
             return;  // Terminar la ejecución del servlet
-        }
-
+        }else {
         // Si está logueado, continuar con la lógica de compra
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
@@ -143,6 +142,8 @@ public class getCupon extends HttpServlet {
         System.out.println("Compra procesada correctamente. Redirigiendo a perfil.jsp.");
         response.sendRedirect("PerfilServlet");
 		doGet(request, response);
+        }
+
 	}
 
 }
