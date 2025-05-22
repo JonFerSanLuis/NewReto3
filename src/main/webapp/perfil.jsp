@@ -10,11 +10,13 @@ String username = null;
 if (cookies != null) {
 	for (Cookie cookie : cookies) {
 		if ("usuario".equals(cookie.getName())) {
-	username = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
-	break;
+			username = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
+			break;
 		}
 	}
 }
+
+request.setAttribute("username", username);
 
 // Verificar si el usuario es administrador
 Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -93,7 +95,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 .btn-danger:hover {
 	background-color: #c82333;
 }
-/* Estilos simples para el modal */
+/* Menu confirmacion */
 .simple-modal {
     display: none;
     position: fixed;
@@ -385,22 +387,22 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			    <!-- Mostrar el botón de eliminar suscripción solo si NO es administrador -->
 			    <form id="eliminarForm" action="EliminarSuscripcionServlet" method="post">
 				    <input type="hidden" name="username" value="<%= username %>">
-				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Eliminar Suscripción</button>
+				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Dar de baja</button>
 				</form>
 				<% } %>
 			</div>
 			
-			<!-- Modal simple de confirmación -->
-<div id="simpleModal" class="simple-modal">
-    <div class="simple-modal-content">
-        <h3>Confirmar</h3>
-        <p>¿Seguro que quieres eliminar la suscripción?</p>
-        <div class="simple-modal-buttons">
-            <button id="simpleCancel" class="simple-modal-cancel">Cancelar</button>
-            <button id="simpleConfirm" class="simple-modal-confirm">Eliminar</button>
-        </div>
-    </div>
-</div>
+			<!-- Menu confirmacion -->
+			<div id="simpleModal" class="simple-modal">
+			    <div class="simple-modal-content">
+			        <h3>Confirmar</h3>
+			        <p>¿Seguro que quieres darte de baja?</p>
+			        <div class="simple-modal-buttons">
+			            <button id="simpleCancel" class="simple-modal-cancel">Cancelar</button>
+			            <button id="simpleConfirm" class="simple-modal-confirm">Eliminar</button>
+			        </div>
+			    </div>
+			</div>
 		</div>
 	</div>
 
@@ -431,8 +433,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 					<li><a href="#"><fmt:message key="footer.nuestrosCursos" /></a></li>
 					<li><a href="#"><fmt:message key="footer.testimonios" /></a></li>
 					<li><a href="#"><fmt:message key="footer.blogEducativo" /></a></li>
-					<li><a href="#"><fmt:message
-								key="footer.preguntasFrecuentes" /></a></li>
+					<li><a href="#"><fmt:message key="footer.preguntasFrecuentes" /></a></li>
 				</ul>
 			</div>
 
@@ -480,12 +481,10 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			});
 		});
 		
-		// Funciones simples para el modal
 	    function mostrarConfirmacion() {
 	        document.getElementById('simpleModal').style.display = 'block';
 	    }
 	    
-	    // Configurar cuando se carga la página
 	    document.addEventListener('DOMContentLoaded', function() {
 	        // Botón cancelar
 	        document.getElementById('simpleCancel').onclick = function() {

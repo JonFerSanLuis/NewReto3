@@ -68,7 +68,7 @@ public class AltaSuscriptor extends HttpServlet {
 				for (Cookie cookie : cookies) {
 					if ("usuario".equals(cookie.getName())) {
 						cookie.setMaxAge(0);
-                        cookie.setPath("/");
+                        cookie.setPath(request.getContextPath() + "/PerfilServlet");
                         response.addCookie(cookie);
 					}
 				}

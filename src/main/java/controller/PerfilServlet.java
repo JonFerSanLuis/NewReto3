@@ -5,6 +5,7 @@ package controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,19 @@ public class PerfilServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtener el nombre de usuario desde la sesión
-        String username = (String) request.getSession().getAttribute("username");
+       // String username = (String) request.getSession().getAttribute("username");
+        
+        Cookie[] cookies = request.getCookies();
+        String username = null;
+
+        if (cookies != null) {
+        	for (Cookie cookie : cookies) {
+        		if ("usuario".equals(cookie.getName())) {
+        			username = java.net.URLDecoder.decode(cookie.getValue(), "UTF-8");
+        			break;
+        		}
+        	}
+        }
         
         if (username != null) {
             // Obtener los cupones del suscriptor
