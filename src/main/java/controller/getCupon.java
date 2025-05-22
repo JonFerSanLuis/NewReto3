@@ -46,7 +46,7 @@ public class getCupon extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
         Cookie[] cookies = request.getCookies();
-        boolean loggedIn = false;\ 
+        boolean loggedIn = false;
         
         if (cookies != null) {
             for (Cookie cookie : cookies) {
