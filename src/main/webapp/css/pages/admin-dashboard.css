@@ -139,15 +139,20 @@
 }
 
 .admin-btn-usuarios {
-  background-color: #4e73df;
+  background-color: #343a40;
   border: none;
   color: white;
 }
 
 .admin-btn-ranking {
-  background-color: #1cc88a;
+  background-color: #343a40;
   border: none;
   color: white;
+}
+
+.admin-btn-usuarios:hover,
+.admin-btn-ranking:hover {
+  background-color: #23272b;
 }
 
 /* Responsive para las tarjetas */
@@ -216,7 +221,7 @@
 
 /* Botón de cerrar sesión */
 .btn-logout {
-  background-color: #4e73df;
+  background-color: #ff9800;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -226,7 +231,7 @@
 }
 
 .btn-logout:hover {
-  background-color: #2e59d9;
+  background-color: #e68a00;
   transform: translateY(-2px);
 }
 
