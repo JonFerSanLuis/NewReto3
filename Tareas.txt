@@ -1,0 +1,1 @@
+1. El filtro no funciona: No verifica que el usuario que accede a la carpeta "private" sea administrador o no.
