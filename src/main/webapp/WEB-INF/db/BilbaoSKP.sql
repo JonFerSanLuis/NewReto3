@@ -44,10 +44,8 @@ CREATE TABLE IF NOT EXISTS `centros` (
   CONSTRAINT `FK_centros_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.centros: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.centros: ~1 rows (aproximadamente)
 INSERT INTO `centros` (`id_suscriptor`, `cod_centro`, `nombre`, `responsable`, `num_alumnos`, `email`, `telefono`, `tipo_suscriptor`) VALUES
-	(10, '0', 'San Luis', 'Josue Mateo', 25, 'josue@gmail.com', '65553215', 'centro'),
-	(12, '0', 'San Luis', 'Josue Mateo', 356, 'prueba@gmail.com', '65553215', 'centro'),
 	(13, '0', 'San Luis 2', 'Erlantz', 344, 'peperodrigues@gmail.com', '65553215', 'centro');
 
 -- Volcando estructura para tabla bilbaoskp.clases
@@ -84,17 +82,12 @@ CREATE TABLE IF NOT EXISTS `cupones` (
   PRIMARY KEY (`id_cupon`),
   KEY `FK__suscriptores` (`id_suscriptor`),
   CONSTRAINT `FK__suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.cupones: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.cupones: ~2 rows (aproximadamente)
 INSERT INTO `cupones` (`id_cupon`, `id_suscriptor`, `tipo`, `fecha_caducidad`, `estado`) VALUES
-	(3, 3, 'Estándar', '2026-05-20', 'disponible'),
-	(4, 3, 'Estándar', '2026-05-20', 'disponible'),
-	(5, 3, 'Estándar', '2026-05-20', 'disponible'),
-	(6, 3, 'Estándar', '2026-05-20', 'disponible'),
-	(7, 3, 'Estándar', '2026-05-20', 'disponible'),
-	(23, 3, 'Básico', '2026-05-20', 'disponible'),
-	(24, 2, 'Básico', '2026-05-20', 'disponible');
+	(42, 32, 'Bullying', '2026-05-20', 'disponible'),
+	(43, 32, 'Bullying', '2026-05-22', 'disponible');
 
 -- Volcando estructura para tabla bilbaoskp.escape_room
 CREATE TABLE IF NOT EXISTS `escape_room` (
@@ -112,10 +105,8 @@ CREATE TABLE IF NOT EXISTS `escape_room` (
   CONSTRAINT `FK_escape_room_suscriptores` FOREIGN KEY (`id_suscriptor`) REFERENCES `suscriptores` (`id_suscriptor`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.escape_room: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.escape_room: ~7 rows (aproximadamente)
 INSERT INTO `escape_room` (`id`, `id_partida`, `id_suscriptor`, `tiempo_seg`, `pistas_usadas`, `puntos_totales`, `tipo_suscriptor`) VALUES
-	(1, 1, 2, 1800, 2, 9845, 'ordinario'),
-	(2, 2, 3, 2100, 3, 9621, 'ordinario'),
 	(3, 3, 4, 2400, 4, 9412, 'ordinario'),
 	(4, 1, 5, 2700, 5, 8975, 'ordinario'),
 	(5, 2, 6, 3000, 6, 8743, 'ordinario'),
@@ -175,22 +166,20 @@ CREATE TABLE IF NOT EXISTS `suscriptores` (
   `correo` varchar(50) DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_suscriptor`),
+  UNIQUE KEY `usernameUnique` (`username`),
   KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla bilbaoskp.suscriptores: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla bilbaoskp.suscriptores: ~8 rows (aproximadamente)
 INSERT INTO `suscriptores` (`id_suscriptor`, `username`, `estado`, `fecha_alta`, `tipo`, `password`, `correo`, `edad`) VALUES
-	(2, 'Jon', 'estado', '2025-04-26', 'ordinario', '1234', 'joni@gmail.com', 21),
-	(3, 'PEpe', 'estado', '2025-04-26', 'ordinario', '1234', 'peperodrigues@gmail.com', 21),
 	(4, 'GamerPro123', 'activo', '2023-01-15', 'ordinario', 'password123', 'gamer123@email.com', 25),
 	(5, 'MasterGamer', 'activo', '2023-02-20', 'ordinario', 'password456', 'master@email.com', 30),
 	(6, 'GameWizard', 'activo', '2023-03-10', 'ordinario', 'password789', 'wizard@email.com', 22),
 	(7, 'PlayerOne', 'activo', '2023-04-05', 'ordinario', 'password101', 'player1@email.com', 28),
 	(8, 'GameChampion', 'activo', '2023-05-12', 'ordinario', 'password202', 'champion@email.com', 19),
-	(10, 'Josue Mateo', 'activo', '2025-04-26', 'centro', 'temporal', 'josue@gmail.com', 0),
-	(12, 'Josue Mateo', 'activo', '2025-04-27', 'centro', 'temporal', 'prueba@gmail.com', 0),
 	(13, 'Erlantz', 'activo', '2025-04-27', 'centro', 'temporal', 'peperodrigues@gmail.com', 0),
-	(14, 'Aldo', 'estado', '2025-04-27', 'ordinario', '1234', 'peperodrigues@gmail.com', 12);
+	(14, 'Aldo', 'estado', '2025-04-27', 'ordinario', '1234', 'peperodrigues@gmail.com', 12),
+	(32, 'Jon', 'estado', '2025-05-20', 'ordinario', '1234', 'jon@gmail.com', 12);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
