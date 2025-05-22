@@ -44,9 +44,9 @@ public class getCupon extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 // Verificar si el usuario está logueado antes de procesar la solicitud
+		
         Cookie[] cookies = request.getCookies();
-        boolean loggedIn = false;
+        boolean loggedIn = false;\ 
         
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -57,13 +57,12 @@ public class getCupon extends HttpServlet {
             }
         }
 
-        // Si no está logueado, redirigir al login
         if (!loggedIn) {
             System.out.println("Usuario no logueado. Redirigiendo a login.jsp.");
             response.sendRedirect("login.jsp");
-            return;  // Terminar la ejecución del servlet
+            return; 
         }else {
-        // Si está logueado, continuar con la lógica de compra
+        
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String cupon = request.getParameter("cupon");
@@ -80,7 +79,7 @@ public class getCupon extends HttpServlet {
         
         if (s == null) {
             System.out.println("Suscriptor no encontrado.");
-            response.sendRedirect("error.jsp"); // Redirigir a una página de error
+            response.sendRedirect("error.jsp"); 
             return;
         }
 
@@ -91,7 +90,7 @@ public class getCupon extends HttpServlet {
         Date fechaActual = new Date(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaActual);
-        calendar.add(Calendar.YEAR, 1); // Caducidad de 1 año
+        calendar.add(Calendar.YEAR, 1); 
         Date fechaCaducidad = new Date(calendar.getTimeInMillis());
         c.setFechaCaducidad(fechaCaducidad);
 
@@ -138,7 +137,6 @@ public class getCupon extends HttpServlet {
                 return;
         }
 
-        // Redirigir al perfil del usuario
         System.out.println("Compra procesada correctamente. Redirigiendo a perfil.jsp.");
         response.sendRedirect("PerfilServlet");
 		doGet(request, response);
