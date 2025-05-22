@@ -1,0 +1,239 @@
+/* Estilos para las tarjetas de información AdminLTE */
+.info-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.info-box {
+  flex: 1;
+  min-width: 200px;
+  color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.info-box-content {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.info-box-number {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+.info-box-text {
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-box-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 70px;
+  opacity: 0.25;
+  z-index: 0;
+}
+
+.info-box-footer {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  text-align: center;
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.info-box-footer:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.info-box-footer i {
+  margin-left: 5px;
+}
+
+/* Colores de las tarjetas */
+.bg-info {
+  background-color: #36b9cc;
+}
+.bg-warning {
+  background-color: #f6c23e;
+}
+.bg-success {
+  background-color: #1cc88a;
+}
+.bg-danger {
+  background-color: #e74a3b;
+}
+
+/* Estilos para el panel de administrador */
+.admin-panel {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-panel-title {
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  border-bottom: 1px solid #e3e6f0;
+  padding-bottom: 15px;
+}
+
+/* Estilos para los botones de administrador */
+.admin-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.admin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px !important;
+  padding: 12px 20px !important;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+}
+
+.admin-btn i {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-btn-usuarios {
+  background-color: #4e73df;
+  border: none;
+  color: white;
+}
+
+.admin-btn-ranking {
+  background-color: #1cc88a;
+  border: none;
+  color: white;
+}
+
+/* Responsive para las tarjetas */
+@media (max-width: 768px) {
+  .info-box-container {
+    flex-direction: column;
+  }
+
+  .info-box {
+    width: 100%;
+  }
+
+  /* Responsive para los botones de administrador */
+  .admin-buttons-container {
+    flex-direction: column;
+  }
+
+  .admin-btn {
+    margin: 5px 0 !important;
+    width: 100%;
+  }
+}
+
+/* Estilos para la sección de búsqueda */
+.search-section {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-title {
+  color: #333;
+  font-size: 18px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Contenedor principal */
+.main-content {
+  background-color: #f8f9fc;
+  padding: 25px;
+  min-height: calc(100vh - 200px);
+}
+
+.page-title {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+}
+
+.page-title:after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #f6c23e;
+  margin: 10px auto 0;
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+  background-color: #4e73df;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-logout:hover {
+  background-color: #2e59d9;
+  transform: translateY(-2px);
+}
+
+/* Contenedor de botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+}

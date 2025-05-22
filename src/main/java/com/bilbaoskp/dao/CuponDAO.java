@@ -188,4 +188,29 @@ public class CuponDAO {
         return result;  // Devolver el resultado de la operación
     }
 	
+	public int contarCuponesTotales() {
+	    Connection con = null;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    int count = 0;
+	    
+	    try {
+	        con = AccesoBD.getConnection();
+	        String sql = "SELECT COUNT(*) FROM cupones";
+	        ps = con.prepareStatement(sql);
+	        rs = ps.executeQuery();
+	        
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        AccesoBD.closeConnection(rs, ps, con);
+	    }
+	    
+	    return count;
+	}
+
+	
 }

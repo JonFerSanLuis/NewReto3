@@ -43,6 +43,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 <!-- CSS -->
 <link rel="stylesheet" href="css/global.css">
 <link rel="stylesheet" href="css/pages/admin-usuarios.css">
+<link rel="stylesheet" href="css/pages/admin-dashboard.css">
 <style>
 .admin-menu {
 	background-color: #f5f5f5;
@@ -239,23 +240,91 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			<%
 			if (userIsAdmin) {
 			%>
-			<!-- Menú de Administrador con estilos mejorados -->
-			<section class="users-table-section">
-				<h2 class="users-table-title">Panel de Administrador</h2>
-				<div style="margin-top: 20px; margin-bottom: 30px;">
-					<a href="AdminUsuarios" class="btn"
-						style="display: block; margin-bottom: 10px; text-align: center;">Gestionar
-						Usuarios</a> <a href="finalizar-ranking.jsp" class="btn"
-						style="display: block; text-align: center;">Finalizar Ranking
-						Actual</a>
+			<!-- Panel de Administrador con estilos mejorados -->
+			<section class="admin-panel">
+				<h2 class="admin-panel-title">Panel de Administrador</h2>
+				
+				<!-- Tarjetas de información estilo AdminLTE -->
+				<div class="info-box-container">
+					<!-- Tarjeta 1: Usuarios Activos -->
+					<div class="info-box bg-info">
+						<div class="info-box-content">
+							<div>
+								<div class="info-box-number">${usuariosActivos}</div>
+								<div class="info-box-text">Usuarios Activos</div>
+							</div>
+						</div>
+						<div class="info-box-icon">
+							<i class="fas fa-user-check"></i>
+						</div>
+						<a href="AdminUsuarios?filtro=activos" class="info-box-footer">
+							Más información <i class="fas fa-arrow-circle-right"></i>
+						</a>
+					</div>
+
+					<!-- Tarjeta 2: Usuarios Inactivos -->
+					<div class="info-box bg-warning">
+						<div class="info-box-content">
+							<div>
+								<div class="info-box-number">${usuariosInactivos}</div>
+								<div class="info-box-text">Usuarios Inactivos</div>
+							</div>
+						</div>
+						<div class="info-box-icon">
+							<i class="fas fa-user-slash"></i>
+						</div>
+						<a href="AdminUsuarios?filtro=inactivos" class="info-box-footer">
+							Más información <i class="fas fa-arrow-circle-right"></i>
+						</a>
+					</div>
+
+					<!-- Tarjeta 3: Centros Registrados -->
+					<div class="info-box bg-success">
+						<div class="info-box-content">
+							<div>
+								<div class="info-box-number">${centrosRegistrados}</div>
+								<div class="info-box-text">Centros Registrados</div>
+							</div>
+						</div>
+						<div class="info-box-icon">
+							<i class="fas fa-school"></i>
+						</div>
+						<a href="AdminUsuarios?filtro=centros" class="info-box-footer">
+							Más información <i class="fas fa-arrow-circle-right"></i>
+						</a>
+					</div>
+
+					<!-- Tarjeta 4: Total Cupones -->
+					<div class="info-box bg-danger">
+						<div class="info-box-content">
+							<div>
+								<div class="info-box-number">${totalCupones}</div>
+								<div class="info-box-text">Cupones Totales</div>
+							</div>
+						</div>
+						<div class="info-box-icon">
+							<i class="fas fa-ticket-alt"></i>
+						</div>
+						<a href="comprarCupon.jsp" class="info-box-footer">
+							Más información <i class="fas fa-arrow-circle-right"></i>
+						</a>
+					</div>
+				</div>
+				
+				<!-- Botones de administrador mejorados -->
+				<div class="admin-buttons-container">
+					<a href="AdminUsuarios" class="btn admin-btn admin-btn-usuarios">
+						<i class="fas fa-users-cog"></i> GESTIONAR USUARIOS
+					</a>
+					<a href="finalizar-ranking.jsp" class="btn admin-btn admin-btn-ranking">
+						<i class="fas fa-trophy"></i> FINALIZAR RANKING
+					</a>
 				</div>
 			</section>
 			<%
-			}
+			} else {
 			%>
-
-			<%-- Continúa con el resto del código existente --%>
-
+			<!-- Mostrar la lista de cupones solo si NO es administrador -->
 			<section class="users-table-section">
 				<h2 class="users-table-title">Lista de cupones</h2>
 				<div class="table-container">
@@ -273,7 +342,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 							<c:choose>
 								<c:when test="${empty listaCupones}">
 									<tr>
-										<td colspan="4" class="no-results"><fmt:message
+										<td colspan="5" class="no-results"><fmt:message
 												key="admin.noResultados" /></td>
 									</tr>
 								</c:when>
@@ -303,15 +372,22 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 					</table>
 				</div>
 			</section>
-			<div style="display: flex; gap: 10px;">
+			<%
+			}
+			%>
+
+			<div class="action-buttons">
 			    <form action="CerrarSesionServlet" method="post">
 			        <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
 			    </form>
 			    
+			    <% if (!userIsAdmin) { %>
+			    <!-- Mostrar el botón de eliminar suscripción solo si NO es administrador -->
 			    <form id="eliminarForm" action="EliminarSuscripcionServlet" method="post">
 				    <input type="hidden" name="username" value="<%= username %>">
 				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Eliminar Suscripción</button>
 				</form>
+				<% } %>
 			</div>
 			
 			<!-- Modal simple de confirmación -->
