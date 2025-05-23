@@ -1,1 +1,8 @@
 1. El filtro no funciona: No verifica que el usuario que accede a la carpeta "private" sea administrador o no.
+
+2. Añadir tipos de cupones:
+	- Regalo, no se puede devolver.
+	- Activo, se puede devolver.
+	- En uso, mientras esta la partida en juego, no se puede devolver.
+	- Usado, cuando ya has jugado la partida, no se puede devolver.
+	- Caducado, cuando lo has usado para jugar, no se puede devolver.
