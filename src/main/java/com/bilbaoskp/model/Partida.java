@@ -3,29 +3,18 @@ package com.bilbaoskp.model;
 import java.util.Date;
 
 public class Partida {
-    private int id;
     private String nombre;
-    private String tipoPartida; // "centro" o "ordinaria"
+    private String tipoPartida;
     private Date fecha;
+    private String idioma; 
 
-    // Constructores
-    public Partida() {
-    }
+    public Partida() {}
 
-    public Partida(int id, String nombre, String tipoPartida, Date fecha) {
-        this.id = id;
+    public Partida(String nombre, String tipoPartida, Date fecha, String idioma) {
         this.nombre = nombre;
         this.tipoPartida = tipoPartida;
         this.fecha = fecha;
-    }
-
-    // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.idioma = idioma;
     }
 
     public String getNombre() {
@@ -52,13 +41,21 @@ public class Partida {
         this.fecha = fecha;
     }
 
+    public String getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
     @Override
     public String toString() {
         return "Partida{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                "nombre='" + nombre + '\'' +
                 ", tipoPartida='" + tipoPartida + '\'' +
                 ", fecha=" + fecha +
+                ", idioma='" + idioma + '\'' +
                 '}';
     }
 }
