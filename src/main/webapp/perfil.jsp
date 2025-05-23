@@ -218,7 +218,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 	</header>
 
 	<div class="main-content">
-		<h1 class="page-title">Perfil del suscriptor</h1>
+		<h1 class="page-title">Su Perfil</h1>
 
 		<!-- Mensajes de éxito o error -->
 		<c:if test="${not empty sessionScope.mensaje}">
@@ -236,7 +236,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 
 		<div class="admin-container">
 			<section class="search-section">
-				<h2 class="search-title">Nombre usuario: ${username}</h2>
+				<h2 class="search-title">¡BIENVENIDO ${username}!</h2>
 			</section>
 
 			<%
@@ -333,11 +333,10 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 					<table class="users-table">
 						<thead>
 							<tr>
-								<th>ID CUPON</th>
 								<th>TIPO</th>
 								<th>FECHA CADUCIDAD</th>
 								<th>ESTADO</th>
-								<th>BORRAR</th>
+								<th>DEVOLVER</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -351,7 +350,6 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 								<c:otherwise>
 									<c:forEach var="cupon" items="${listaCupones}">
 										<tr>
-											<td>${cupon.idCupon}</td>
 											<td>${cupon.tipo}</td>
 											<td><fmt:formatDate value="${cupon.fechaCaducidad}"
 													pattern="dd/MM/yyyy" /></td>
@@ -363,7 +361,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 												<form action="BorrarCuponServlet" method="post">
 													<input type="hidden" name="idCupon"
 														value="${cupon.idCupon}">
-													<button type="submit" class="btn btn-danger">Borrar</button>
+													<button type="submit" class="btn btn-danger">DEVOLVER</button>
 												</form>
 											</td>
 										</tr>

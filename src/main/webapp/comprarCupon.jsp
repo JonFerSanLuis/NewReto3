@@ -37,161 +37,178 @@
     <link rel="stylesheet" href="css/pages/comprar-cupon.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
-        </div>
+	<header class="header">
+		<div class="logo">
+			<a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
+		</div>
 
-        <nav class="nav-container">
-            <ul class="nav-links">
-                <li><a href="informacion.jsp"><fmt:message key="menu.informacion" /></a></li>
-                <li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
-                <li><a href="comprarCupon.jsp"><fmt:message key="menu.comprarCupon" /></a></li>
-            </ul>
-        </nav>
+		<nav class="nav-container">
+			<ul class="nav-links">
+				<li><a href="informacion.jsp"><fmt:message
+							key="menu.informacion" /></a></li>
+				<li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
+				<li><a href="comprarCupon.jsp"><fmt:message
+							key="menu.comprarCupon" /></a></li>
+			</ul>
+		</nav>
 
-        <div class="right-section">
-            <div class="idiomas">
-                <img src="img/idiomas.png" alt="Idiomas">
-                <ul class="idioma-menu">
-                    <li><a href="CambiarIdioma?idioma=es"><fmt:message key="idioma.espanol" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=en"><fmt:message key="idioma.ingles" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=eu"><fmt:message key="idioma.euskera" /></a></li>
-                </ul>
-            </div>
-            <%   if (username != null) { 
+		<div class="right-section">
+			<div class="idiomas">
+				<img src="img/idiomas.png" alt="Idiomas">
+				<ul class="idioma-menu">
+					<li><a href="CambiarIdioma?idioma=es"><fmt:message
+								key="idioma.espanol" /></a></li>
+					<li><a href="CambiarIdioma?idioma=en"><fmt:message
+								key="idioma.ingles" /></a></li>
+					<li><a href="CambiarIdioma?idioma=eu"><fmt:message
+								key="idioma.euskera" /></a></li>
+				</ul>
+			</div>
+			<%   if (username != null) { 
 			%>
-			        <a href="PerfilServlet" class="btn">Perfil</a>
+			<a href="PerfilServlet" class="btn">Perfil</a>
 			<% 
 			    } else { 
 			%>
-			        <a href="login.jsp" class="btn">Iniciar sesión</a>
+			<a href="login.jsp" class="btn">Iniciar sesión</a>
 			<% 
 			    } 
 			%>
 			<%   if (username != null) { 
 			%>
-			        <!-- No se muestra el botón descargar si no hay cookie -->
+			<!-- No se muestra el botón descargar si no hay cookie -->
 			<% 
 			    } else { 
 			%>
-			        <a href="suscribirse.jsp" class="btn"><fmt:message key="menu.suscribirse" /></a>
+			<a href="suscribirse.jsp" class="btn"><fmt:message
+					key="menu.suscribirse" /></a>
 			<% 
 			    } 
 			%>
-            <%   if (username != null) { 
+			<%   if (username != null) { 
 			%>
-			        <a href="private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a>
+			<a href="private/descargarJuego.jsp" class="btn"><fmt:message
+					key="menu.descargar" /></a>
 			<% 
 			    } else { 
 			%>
-			        <!-- No se muestra el botón descargar si no hay cookie -->
+			<!-- No se muestra el botón descargar si no hay cookie -->
 			<% 
 			    } 
 			%>
-        </div>
-    </header>
+		</div>
+	</header>
 
-    <div class="main-content">
-        <h1 class="page-title"><fmt:message key="cupon.titulo" /></h1>
+	<div class="main-content">
+		<h1 class="page-title">
+			<fmt:message key="cupon.titulo" />
+		</h1>
 
-        <div class="cupon-container">
-            <div class="cupon-options">
-                <div class="cupon-card">
-                    <div class="cupon-header">
-                        <h3 class="cupon-title"><fmt:message key="cupon.basico" /></h3>
-                        <div class="cupon-price">1.50€ <span>/unidad</span></div>
-                    </div>
-                    <div class="cupon-body">
-                        <ul class="cupon-features">
-                            <li>1 intento en el juego</li>
-                            <li>Participación en el ranking</li>
-                            <li>Acceso a contenido básico</li>
-                        </ul>
-                        <a href="#payment-form" class="cupon-button"><fmt:message key="cupon.seleccionar" /></a>
-                    </div>
-                </div>
+		<div class="cupon-container">
+			<div class="cupon-options">
 
-                <div class="cupon-card">
-                    <div class="cupon-header">
-                        <h3 class="cupon-title"><fmt:message key="cupon.estandar" /></h3>
-                        <div class="cupon-price">5€ <span>/unidad</span></div>
-                    </div>
-                    <div class="cupon-body">
-                        <ul class="cupon-features">
-                            <li>5 intentos en el juego</li>
-                            <li>Participación en el ranking</li>
-                            <li>Acceso a contenido premium</li>
-                            <li>Soporte prioritario</li>
-                        </ul>
-                        <a href="#payment-form" class="cupon-button"><fmt:message key="cupon.seleccionar" /></a>
-                    </div>
-                </div>
-
-                <div class="cupon-card">
-                    <div class="cupon-header">
-                        <h3 class="cupon-title"><fmt:message key="cupon.premium" /></h3>
-                        <div class="cupon-price">12.50€ <span>/unidad</span></div>
-                    </div>
-                    <div class="cupon-body">
-                        <ul class="cupon-features">
-                            <li>12 intentos en el juego</li>
-                            <li>Participación en el ranking</li>
-                            <li>Acceso a todo el contenido</li>
-                            <li>Soporte prioritario 24/7</li>
-                            <li>Recompensas exclusivas</li>
-                        </ul>
-                        <a href="#payment-form" class="cupon-button"><fmt:message key="cupon.seleccionar" /></a>
-                    </div>
-                </div>
-            </div>
-			  <div id="payment-form" class="payment-form">
-			    <h2 class="form-title"><fmt:message key="cupon.infoPago" /></h2>
-			    <form action="getCupon" method="POST">
-			        <div class="form-group">
-			            <label for="nombre"><fmt:message key="cupon.nombreCompleto" /></label>
-			            <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
-			        </div>
-			        <div class="form-group">
-			            <label for="email"><fmt:message key="cupon.email" /></label>
-			            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
-			        </div>
-			        <div class="form-group">
-			            <label for="cupon"><fmt:message key="cupon.tipoCupon" /></label>
-			            <select id="cupon" name="cupon" required>
-			                <option value=""><fmt:message key="cupon.seleccioneCupon" /></option>
-			                <option value="Cupón Basico"><fmt:message key="cupon.basico" /> - 1.50€</option>
-			                <option value="Pack Estándar"><fmt:message key="cupon.estandar" /> - 5€</option>
-			                <option value="Pack Premium"><fmt:message key="cupon.premium" /> - 12.50€</option>
-			            </select>
-			        </div>
-			        <div class="form-group">
-			            <label for="cantidad"><fmt:message key="cupon.cantidad" /></label>
-			            <input type="number" id="cantidad" name="cantidad" min="1" value="1" required>
-			        </div>
-			        <div class="form-group">
-			            <label for="tarjeta"><fmt:message key="cupon.numeroTarjeta" /></label>
-			            <input type="text" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" required>
-			        </div>
-			        <div class="form-row">
-			            <div class="form-group">
-			                <label for="caducidad"><fmt:message key="cupon.fechaCaducidad" /></label>
-			                <input type="text" id="caducidad" name="caducidad" placeholder="MM/AA" required>
-			            </div>
-			            <div class="form-group">
-			                <label for="cvv"><fmt:message key="cupon.cvv" /></label>
-			                <input type="text" id="cvv" name="cvv" placeholder="123" required>
-			            </div>
-			        </div>
-			        <div class="form-submit">
-			            <button type="submit"><fmt:message key="cupon.completarCompra" /></button>
-			        </div>
-			    </form>
+				<div class="cupon-card">
+					<div class="cupon-header">
+						<h3 class="cupon-title">
+							<fmt:message key="cupon.estandar" />
+						</h3>
+						<div class="cupon-price">
+							2.50€ <span>/unidad</span>
+						</div>
+					</div>
+					<div class="cupon-body">
+						<ul class="cupon-features">
+							<li><img src="img/barco.jpg" alt="juego2" width="325"
+								height="210" class="blanco-negro"></li>
+						</ul>
+						<a href="#payment-form" class="cupon-button"><fmt:message
+								key="cupon.disable" /></a>
+					</div>
+				</div>
+				<div class="cupon-card">
+					<div class="cupon-header-able">
+						<h3 class="cupon-title">
+							<fmt:message key="cupon.basico" />
+						</h3>
+						<div class="cupon-price">
+							1.50€ <span>/unidad</span>
+						</div>
+					</div>
+					<div class="cupon-body">
+						<ul class="cupon-features">
+							<li><img src="img/colegio.jpg" alt="juego1" width="325"
+								height="210"></li>
+						</ul>
+						<a href="#payment-form" class="cupon-button-able"><fmt:message
+								key="cupon.seleccionar" /></a>
+					</div>
+				</div>
+				<div class="cupon-card">
+					<div class="cupon-header">
+						<h3 class="cupon-title">
+							<fmt:message key="cupon.premium" />
+						</h3>
+						<div class="cupon-price">
+							2.50€ <span>/unidad</span>
+						</div>
+					</div>
+					<div class="cupon-body">
+						<ul class="cupon-features">
+							<li><img src="img/luna.jpg" alt="juego3" width="325"
+								height="210" class="blanco-negro"></li>
+						</ul>
+						<a href="#payment-form" class="cupon-button"><fmt:message
+								key="cupon.disable" /></a>
+					</div>
+				</div>
 			</div>
-        </div>
-    </div>
+			<div id="payment-form" class="payment-form">
+				<h2 class="form-title">
+					<fmt:message key="cupon.infoPago" />
+				</h2>
+				<form action="getCupon" method="POST">
+					<div class="form-group">
+						<label for="email"><fmt:message key="cupon.email" /></label> <input
+							type="email" id="email" name="email"
+							placeholder="ejemplo@correo.com" required>
+					</div>
+					<div class="form-group">
+						<label for="cupon"><fmt:message key="cupon.tipoCupon" /></label>
+						<select id="cupon" name="cupon" required>
+							<option value=""><fmt:message
+									key="cupon.seleccioneCupon" /></option>
+							<option value="SOLEDAD"><fmt:message key="cupon.basico" />
+								- 1.50€
+							</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="tarjeta"><fmt:message
+								key="cupon.numeroTarjeta" /></label> <input type="text" id="tarjeta"
+							name="tarjeta" placeholder="1234 5678 9012 3456" required>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label for="caducidad"><fmt:message
+									key="cupon.fechaCaducidad" /></label> <input type="text"
+								id="caducidad" name="caducidad" placeholder="MM/AA" required>
+						</div>
+						<div class="form-group">
+							<label for="cvv"><fmt:message key="cupon.cvv" /></label> <input
+								type="text" id="cvv" name="cvv" placeholder="123" required>
+						</div>
+					</div>
+					<div class="form-submit">
+						<button type="submit">
+							<fmt:message key="cupon.completarCompra" />
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-    <!-- Reemplazar el footer actual por el nuevo diseño -->
+	<!-- Reemplazar el footer actual por el nuevo diseño -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">

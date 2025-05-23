@@ -21,6 +21,9 @@ import service.SuscriptorService;
  */
 @WebServlet("/getCupon")
 public class getCupon extends HttpServlet {
+	
+	Cookie[] cookies;
+	String nombre;
 	private static final long serialVersionUID = 1L;
 	CuponService cuponService = new CuponService();
        
@@ -45,7 +48,7 @@ public class getCupon extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-        Cookie[] cookies = request.getCookies();
+        cookies = request.getCookies();
         boolean loggedIn = false;
         
         if (cookies != null) {
@@ -57,90 +60,76 @@ public class getCupon extends HttpServlet {
             }
         }
 
-        if (!loggedIn) {
-            System.out.println("Usuario no logueado. Redirigiendo a login.jsp.");
-            response.sendRedirect("login.jsp");
-            return; 
-        }else {
-        
-        String nombre = request.getParameter("nombre");
-        String email = request.getParameter("email");
-        String cupon = request.getParameter("cupon");
-        System.out.println(cupon);
-        int cantidad = Integer.parseInt(request.getParameter("cantidad"));
-        String tarjeta = request.getParameter("tarjeta");
-        String caducidad = request.getParameter("caducidad");
-        String cvv = request.getParameter("cvv");
+		if (!loggedIn) {
+			System.out.println("Usuario no logueado. Redirigiendo a login.jsp.");
+			response.sendRedirect("login.jsp");
+			return;
+		} else {
 
-        System.out.println("Procesando compra para el usuario: " + nombre);
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if ("usuario".equals(cookie.getName())) {
+						nombre = cookie.getValue();
+						break;
+					}
+				}
+			}
 
-        SuscriptorService suscriptorService = new SuscriptorService();
-        Suscriptor s = suscriptorService.getSuscriptorByNombreService(nombre);
-        
-        if (s == null) {
-            System.out.println("Suscriptor no encontrado.");
-            response.sendRedirect("error.jsp"); 
-            return;
-        }
+			String email = request.getParameter("email");
+			String cupon = request.getParameter("cupon");
+			System.out.println(cupon);
+			String tarjeta = request.getParameter("tarjeta");
+			String caducidad = request.getParameter("caducidad");
+			String cvv = request.getParameter("cvv");
 
-        CuponService cupService = new CuponService();
-        Cupon c = new Cupon();
-        c.setIdSuscriptor(s.getIdSuscriptor());
-        c.setEstado("disponible");
-        Date fechaActual = new Date(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechaActual);
-        calendar.add(Calendar.YEAR, 1); 
-        Date fechaCaducidad = new Date(calendar.getTimeInMillis());
-        c.setFechaCaducidad(fechaCaducidad);
+			System.out.println("Procesando compra para el usuario: " + nombre);
 
-        switch (cupon) {
-            case "Cup√≥n Basico":
-                for (int a = 0; a < cantidad; a++) {
-                    c.setTipo("B·sico");
-                    try {
-                        cupService.asignarCuponService(c);
-                    } catch (Exception e) {
-                        System.out.println("Error al asignar cupon Basico: " + e.getMessage());
-                        return;
-                    }
-                }
-                break;
+			SuscriptorService suscriptorService = new SuscriptorService();
+			Suscriptor s = suscriptorService.getSuscriptorByNombreService(nombre);
 
-            case "Pack Est√°ndar":
-                for (int a = 0; a < cantidad * 5; a++) {
-                    c.setTipo("Est·ndar");
-                    try {
-                        cupService.asignarCuponService(c);
-                    } catch (Exception e) {
-                        System.out.println("Error al asignar cupon Est·ndar: " + e.getMessage());
-                        return;
-                    }
-                }
-                break;
+			if (s == null) {
+				System.out.println("Suscriptor no encontrado.");
+				response.sendRedirect("error.jsp");
+				return;
+			}
 
-            case "Pack Premium":
-                for (int a = 0; a < cantidad * 12; a++) {
-                    c.setTipo("Premium");
-                    try {
-                        cupService.asignarCuponService(c);
-                    } catch (Exception e) {
-                        System.out.println("Error al asignar cupon Premium: " + e.getMessage());
-                        return;
-                    }
-                }
-                break;
+			CuponService cupService = new CuponService();
+			Cupon c = new Cupon();
+			c.setIdSuscriptor(s.getIdSuscriptor());
+			c.setEstado("disponible");
+			Date fechaActual = new Date(System.currentTimeMillis());
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fechaActual);
+			calendar.add(Calendar.YEAR, 1);
+			Date fechaCaducidad = new Date(calendar.getTimeInMillis());
+			c.setFechaCaducidad(fechaCaducidad);
 
-            default:
-                System.out.println("Tipo de cupon no v·lido.");
-                doGet(request, response);
-                return;
-        }
+			switch (cupon) {
+			case "SOLEDAD":
+				c.setTipo("Bullying");
+				cupService.asignarCuponService(c);
+				break;
 
-        System.out.println("Compra procesada correctamente. Redirigiendo a perfil.jsp.");
-        response.sendRedirect("PerfilServlet");
-		doGet(request, response);
-        }
+			case "MIL Y UNA PREGUNTAS":
+				System.out.println("Tipo de cupon no v·lido.");
+				doGet(request, response);
+				return;
+
+			case "LA ULTIMA SANGRE":
+				System.out.println("Tipo de cupon no v·lido.");
+				doGet(request, response);
+				return;
+
+			default:
+				System.out.println("Tipo de cupon no v·lido.");
+				doGet(request, response);
+				return;
+			}
+
+			System.out.println("Compra procesada correctamente. Redirigiendo a perfil.jsp.");
+			response.sendRedirect("PerfilServlet");
+			doGet(request, response);
+		}
 
 	}
 
