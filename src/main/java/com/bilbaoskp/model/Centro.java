@@ -9,13 +9,14 @@ public class Centro {
     private String email;
     private String telefono;
     private int idSuscriptor; // Relacion con la tabla suscriptores
+    private String password;
 
     // Constructores
     public Centro() {
     }
 
     public Centro(int codCentro, String nombre, String responsable, String tipoCentro,
-			int numAlumnos, String email, String telefono) {
+			int numAlumnos, String email, String telefono, String password) {
 		super();
 		this.codCentro = codCentro;
 		this.nombre = nombre;
@@ -24,6 +25,7 @@ public class Centro {
 		this.numAlumnos = numAlumnos;
 		this.email = email;
 		this.telefono = telefono;
+		this.password = password;
 	}
 
 
@@ -93,7 +95,15 @@ public class Centro {
         this.idSuscriptor = idSuscriptor;
     }
 
-    @Override
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
     public String toString() {
         return "Centro{" +
                 "codCentro=" + codCentro +
