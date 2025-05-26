@@ -34,7 +34,7 @@ public class CentroDAO {
                 // 1) Insert suscriptor
                 Suscriptor suscriptor = new Suscriptor();
                 suscriptor.setUsername(centro.getResponsable());
-                suscriptor.setEstado("activo");
+                suscriptor.setEstado("pendiente");
                 suscriptor.setFechaAlta(new java.util.Date());
                 suscriptor.setTipo("centro");
                 suscriptor.setPassword("temporal");

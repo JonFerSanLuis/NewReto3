@@ -386,4 +386,30 @@ public class SuscriptorDAO {
         return count;
     }
 
+    public List<Suscriptor> getSuscriptoresByTipoAndEstado(String tipo, String estado) {
+        List<Suscriptor> suscriptores = new ArrayList<>();
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            con = AccesoBD.getConnection();
+            String sql = "SELECT * FROM suscriptores WHERE tipo = ? AND estado = ? ORDER BY id_suscriptor";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, tipo);
+            ps.setString(2, estado);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Suscriptor suscriptor = mapResultSetToSuscriptor(rs);
+                suscriptores.add(suscriptor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            AccesoBD.closeConnection(rs, ps, con);
+        }
+        
+        return suscriptores;
+    }
 }
