@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.bilbaoskp.model.Centro;
-import com.bilbaoskp.model.Suscriptor;
 
 import db.AccesoBD;
 
