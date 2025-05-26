@@ -46,7 +46,8 @@
                 <li><a href="informacion.jsp"><fmt:message key="menu.informacion" /></a></li>
                 <li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
                 <li><a href="comprarCupon.jsp"><fmt:message key="menu.comprarCupon" /></a></li>
-                <li><a href="admin-usuarios.jsp" class="active"><fmt:message key="admin.titulo" /></a></li>
+                <li><a href="AdminUsuarios?action=listar" <c:if test="${param.action == 'listar' || empty param.action}">class="active"</c:if>><fmt:message key="admin.titulo" /></a></li>
+                <li><a href="AdminUsuarios?action=listarPendientes" <c:if test="${param.action == 'listarPendientes'}">class="active"</c:if>><fmt:message key="admin.pendingCenters" /></a></li>
             </ul>
         </nav>
 
@@ -173,6 +174,60 @@
                     </table>
                 </div>
             </section>
+
+            <!-- Sección de Centros Pendientes -->
+            <c:if test="${not empty listaCentrosPendientes}">
+                <section class="pending-centers-table-section">
+                    <h2 class="users-table-title"><fmt:message key="admin.centrosPendientes" /></h2>
+                    <div class="table-container">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th><fmt:message key="admin.id" /></th>
+                                    <th><fmt:message key="admin.nombre" /></th>
+                                    <th><fmt:message key="admin.email" /></th>
+                                    <th><fmt:message key="admin.tipo" /></th>
+                                    <th><fmt:message key="admin.estado" /></th>
+                                    <th><fmt:message key="admin.fechaAlta" /></th>
+                                    <th><fmt:message key="admin.acciones" /></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="centro" items="${listaCentrosPendientes}">
+                                    <tr>
+                                        <td>${centro.idSuscriptor}</td>
+                                        <td>${centro.username}</td>
+                                        <td>${centro.correo}</td>
+                                        <td>${centro.tipo}</td>
+                                        <td>
+                                            <span class="status-badge status-pending">
+                                                ${centro.estado}
+                                            </span>
+                                        </td>
+                                        <td><fmt:formatDate value="${centro.fechaAlta}" pattern="dd/MM/yyyy" /></td>
+                                        <td class="actions">
+                                            <form action="AdminUsuarios" method="post" style="display: inline;">
+                                                <input type="hidden" name="action" value="aceptarCentro">
+                                                <input type="hidden" name="id" value="${centro.idSuscriptor}">
+                                                <button type="submit" class="action-btn accept-btn" title="<fmt:message key="admin.aceptar" />">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                            <button onclick="confirmarRechazar(${centro.idSuscriptor}, '${centro.username}')" class="action-btn reject-btn" title="<fmt:message key="admin.rechazar" />">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </c:if>
+            <c:if test="${empty listaCentrosPendientes && param.action == 'listarPendientes'}">
+                <p><fmt:message key="admin.noCentrosPendientes" /></p>
+            </c:if>
+            
         </div>
     </div>
 
@@ -181,13 +236,30 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2><fmt:message key="admin.confirmarEliminacion" /></h2>
-            <p><fmt:message key="admin.confirmarEliminarUsuario" /> <span id="nombre-usuario"></span>?</p>
+            <p><fmt:message key="admin.confirmarEliminarUsuario" /> <span id="nombre-usuario-eliminar"></span>?</p>
             <div class="modal-buttons">
-                <button id="btn-cancelar" class="btn-secondary"><fmt:message key="admin.cancelar" /></button>
+                <button id="btn-cancelar-eliminar" class="btn-secondary"><fmt:message key="admin.cancelar" /></button>
                 <form id="form-eliminar" action="AdminUsuarios" method="post">
                     <input type="hidden" name="action" value="eliminar">
                     <input type="hidden" id="id-eliminar" name="id" value="">
                     <button type="submit" class="btn-danger"><fmt:message key="admin.eliminar" /></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para rechazar centro -->
+    <div id="modal-rechazar" class="modal">
+        <div class="modal-content">
+            <span class="close-modal-rechazar">&times;</span>
+            <h2><fmt:message key="admin.confirmarRechazo" /></h2>
+            <p><fmt:message key="admin.confirmarRechazarCentro" /> <span id="nombre-centro-rechazar"></span>?</p>
+            <div class="modal-buttons">
+                <button id="btn-cancelar-rechazar" class="btn-secondary"><fmt:message key="admin.cancelar" /></button>
+                <form id="form-rechazar" action="AdminUsuarios" method="post">
+                    <input type="hidden" name="action" value="rechazarCentro">
+                    <input type="hidden" id="id-rechazar" name="id" value="">
+                    <button type="submit" class="btn-danger"><fmt:message key="admin.rechazar" /></button>
                 </form>
             </div>
         </div>
@@ -254,7 +326,7 @@
         // Script para el modal de confirmación de eliminación
         function confirmarEliminar(id, nombre) {
             document.getElementById('id-eliminar').value = id;
-            document.getElementById('nombre-usuario').textContent = nombre;
+            document.getElementById('nombre-usuario-eliminar').textContent = nombre;
             document.getElementById('modal-eliminar').style.display = 'flex';
         }
 
@@ -262,13 +334,34 @@
             document.getElementById('modal-eliminar').style.display = 'none';
         });
 
-        document.getElementById('btn-cancelar').addEventListener('click', function() {
+        document.getElementById('btn-cancelar-eliminar').addEventListener('click', function() {
             document.getElementById('modal-eliminar').style.display = 'none';
         });
 
         window.addEventListener('click', function(event) {
             if (event.target == document.getElementById('modal-eliminar')) {
                 document.getElementById('modal-eliminar').style.display = 'none';
+            }
+        });
+
+        // Script para el modal de confirmación de rechazo de centro
+        function confirmarRechazar(id, nombre) {
+            document.getElementById('id-rechazar').value = id;
+            document.getElementById('nombre-centro-rechazar').textContent = nombre;
+            document.getElementById('modal-rechazar').style.display = 'flex';
+        }
+
+        document.querySelector('.close-modal-rechazar').addEventListener('click', function() {
+            document.getElementById('modal-rechazar').style.display = 'none';
+        });
+
+        document.getElementById('btn-cancelar-rechazar').addEventListener('click', function() {
+            document.getElementById('modal-rechazar').style.display = 'none';
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('modal-rechazar')) {
+                document.getElementById('modal-rechazar').style.display = 'none';
             }
         });
     </script>
