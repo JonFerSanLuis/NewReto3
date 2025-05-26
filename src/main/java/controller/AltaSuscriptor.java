@@ -104,57 +104,58 @@ public class AltaSuscriptor extends HttpServlet {
     	}
 	}
 	else if ("centro".equals(tipoRegistro)) {  
-		
-		String nombre = request.getParameter("nombre");
-		int codigo_centro = Integer.valueOf(request.getParameter("codigo"));
-		String responsable = request.getParameter("responsable");
-		String email = request.getParameter("email");
-		String tipoCentro = request.getParameter("tipo");
-		int numAlumnos = Integer.valueOf(request.getParameter("alumnos"));
-		String numTelefono = request.getParameter("telefono");
-		
-		Centro centro = new Centro(codigo_centro, nombre, responsable, tipoCentro, numAlumnos, email, numTelefono);
-		
-		if (centroService.addCentro(centro)) { 
-			for(int a =0;a<numAlumnos;a++) {
-				// Solo registrar al responsable
-            Suscriptor s = new Suscriptor();
-            s.setUsername(responsable); // Nombre del responsable
-            s.setEstado("estado");
-            s.setFechaAlta(new Date(System.currentTimeMillis()));
-            s.setTipo("responsable"); // Tipo 'responsable'
-            s.setPassword("defaultPassword"); // Recuerda cambiarlo luego
-            s.setCorreo(email); // Correo del responsable
-            s.setEdad(0); // Edad predeterminada
+	    String nombre = request.getParameter("nombre");
+	    int codigo_centro = Integer.valueOf(request.getParameter("codigo"));
+	    String responsable = request.getParameter("responsable");
+	    String email = request.getParameter("email");
+	    String tipoCentro = request.getParameter("tipo");
+	    int numAlumnos = Integer.valueOf(request.getParameter("alumnos"));
+	    String numTelefono = request.getParameter("telefono");
+	    String password = request.getParameter("password");
 
-            suscriptorService.addSuscriptor(s);
+	    // Crear al responsable como suscriptor
+	    Suscriptor s = new Suscriptor();
+	    s.setUsername(responsable);
+	    s.setEstado("estado");
+	    s.setFechaAlta(new Date(System.currentTimeMillis()));
+	    s.setTipo("responsable");
+	    s.setPassword(password);
+	    s.setCorreo(email);
+	    s.setEdad(0);
 
-            // Asignar cupon al responsable
-            s = suscriptorService.getSuscriptorByNombreService(s.getUsername()); // Obtener el suscriptor por nombre
-            Cupon c = new Cupon();
-            c.setIdSuscriptor(s.getIdSuscriptor());
-            c.setTipo("Bullying");
+	    suscriptorService.addSuscriptor(s);
 
-            Date fechaActual = new Date(System.currentTimeMillis());
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(fechaActual);
-            calendar.add(Calendar.YEAR, 1); // Caducidad de 1 año
-            Date fechaCaducidad = new Date(calendar.getTimeInMillis());
+	    // Obtener el ID del responsable
+	    s = suscriptorService.getSuscriptorByNombreService(responsable);
+	    int idResponsable = s.getIdSuscriptor();
 
-            c.setFechaCaducidad(fechaCaducidad);
-            c.setEstado("disponible");
+	    // Crear el centro
+	    Centro centro = new Centro(codigo_centro, nombre, responsable, tipoCentro, numAlumnos, email, numTelefono, password);
+	    centro.setIdSuscriptor(idResponsable);
 
-            CuponService cup = new CuponService();
-            cup.asignarCuponService(c);
-			}
-            
-            response.sendRedirect("index.jsp"); // Redirigir al index
-        }
-		else {
-			request.setAttribute("errorMensaje", "Error al registrar suscriptor. Inténtalo de nuevo.");
-            request.getRequestDispatcher("suscribirse.jsp").forward(request, response);
-		}
-	} 
+	    if (centroService.addCentro(centro)) {
+	        // Asignar cupón al responsable
+	        Cupon c = new Cupon();
+	        c.setIdSuscriptor(idResponsable);
+	        c.setTipo("Bullying");
+
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(new Date(System.currentTimeMillis()));
+	        calendar.add(Calendar.YEAR, 1);
+	        Date fechaCaducidad = new Date(calendar.getTimeInMillis());
+
+	        c.setFechaCaducidad(fechaCaducidad);
+	        c.setEstado("disponible");
+
+	        CuponService cup = new CuponService();
+	        cup.asignarCuponService(c);
+
+	        response.sendRedirect("index.jsp");
+	    } else {
+	        request.setAttribute("errorMensaje", "Error al registrar centro. Inténtalo de nuevo.");
+	        request.getRequestDispatcher("suscribirse.jsp").forward(request, response);
+	    }
+	}
 	else {
 		
 		response.sendRedirect("error.jsp");
