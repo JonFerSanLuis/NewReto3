@@ -1,24 +1,17 @@
 package com.bilbaoskp.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.bilbaoskp.model.Centro;
-import com.bilbaoskp.model.Suscriptor;
 
 import db.AccesoBD;
 
 public class CentroDAO {
     
 	public boolean addCentro(Centro centro) throws SQLException {
-        String sqlSuscriptor = """
-            INSERT INTO suscriptores
-              (username, estado, fecha_alta, tipo, password, correo, edad)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """;
         String sqlCentro = """
             INSERT INTO centros
               (id_suscriptor, cod_centro, nombre, responsable, tipo_suscriptor,
@@ -28,6 +21,7 @@ public class CentroDAO {
 
         try (Connection con = AccesoBD.getConnection()) {
             con.setAutoCommit(false);
+<<<<<<< Updated upstream
             try (
                 PreparedStatement psSus = con.prepareStatement(sqlSuscriptor, PreparedStatement.RETURN_GENERATED_KEYS);
             ) {
@@ -63,6 +57,9 @@ public class CentroDAO {
             }
 
             // 2) Insert centro
+=======
+            // Insert centro
+>>>>>>> Stashed changes
             try (PreparedStatement psCen = con.prepareStatement(sqlCentro)) {
                 psCen.setInt(1, centro.getIdSuscriptor());
                 psCen.setInt(2, centro.getCodCentro());
