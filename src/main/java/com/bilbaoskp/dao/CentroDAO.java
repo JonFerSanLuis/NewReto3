@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.bilbaoskp.model.Centro;
+import com.bilbaoskp.model.Suscriptor;
 
 import db.AccesoBD;
 
@@ -21,45 +22,7 @@ public class CentroDAO {
 
         try (Connection con = AccesoBD.getConnection()) {
             con.setAutoCommit(false);
-<<<<<<< Updated upstream
-            try (
-                PreparedStatement psSus = con.prepareStatement(sqlSuscriptor, PreparedStatement.RETURN_GENERATED_KEYS);
-            ) {
-                // 1) Insert suscriptor
-                Suscriptor suscriptor = new Suscriptor();
-                suscriptor.setUsername(centro.getResponsable());
-                suscriptor.setEstado("pendiente");
-                suscriptor.setFechaAlta(new java.util.Date());
-                suscriptor.setTipo("centro");
-                suscriptor.setPassword("temporal");
-                suscriptor.setCorreo(centro.getEmail());
-                suscriptor.setEdad(0);
-
-                psSus.setString(1, suscriptor.getUsername());
-                psSus.setString(2, suscriptor.getEstado());
-                psSus.setDate(3, new Date(suscriptor.getFechaAlta().getTime()));
-                psSus.setString(4, suscriptor.getTipo());
-                psSus.setString(5, suscriptor.getPassword());
-                psSus.setString(6, suscriptor.getCorreo());
-                psSus.setInt(7, suscriptor.getEdad());
-
-                if (psSus.executeUpdate() != 1) {
-                    throw new SQLException("No se pudo insertar en suscriptores");
-                }
-
-                // Obtener id_suscriptor
-                try (ResultSet rs = psSus.getGeneratedKeys()) {
-                    if (!rs.next()) {
-                        throw new SQLException("No se generó id_suscriptor");
-                    }
-                    centro.setIdSuscriptor(rs.getInt(1));
-                }
-            }
-
-            // 2) Insert centro
-=======
             // Insert centro
->>>>>>> Stashed changes
             try (PreparedStatement psCen = con.prepareStatement(sqlCentro)) {
                 psCen.setInt(1, centro.getIdSuscriptor());
                 psCen.setInt(2, centro.getCodCentro());
