@@ -217,7 +217,7 @@
 
                 <div id="login-form" class="auth-form" style="display: none;">
                     <h2 class="form-title"><fmt:message key="suscribirse.iniciarSesionTitulo" /></h2>
-                    <form>
+                    <form action="LoginServlet" method="post"> <%-- Added action and method --%>
                         <div class="form-group">
                             <label for="login-email"><fmt:message key="cupon.email" /></label>
                             <input type="email" id="login-email" name="email" placeholder="ejemplo@correo.com" required>
