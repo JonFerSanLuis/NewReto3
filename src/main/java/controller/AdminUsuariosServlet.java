@@ -98,7 +98,7 @@ public class AdminUsuariosServlet extends HttpServlet {
     private void listarCentrosPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Suscriptor> centrosPendientes = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "pendiente");
         request.setAttribute("listaCentrosPendientes", centrosPendientes);
-        request.getRequestDispatcher("private/admin-usuarios.jsp").forward(request, response);
+        request.getRequestDispatcher("private/admin-pending-centers.jsp").forward(request, response);
     }
     
     private void mostrarFormularioEdicion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
