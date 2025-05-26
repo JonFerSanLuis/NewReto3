@@ -63,14 +63,16 @@ public class PerfilServlet extends HttpServlet {
                 // Contar usuarios activos, inactivos, centros y cupones
                 int usuariosActivos = suscriptorDAO.contarUsuariosActivos();
                 int usuariosInactivos = suscriptorDAO.contarUsuariosInactivos();
-                int centrosRegistrados = suscriptorDAO.contarCentros();
+                int centrosRegistrados = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "activo").size(); // Counting active centers
                 int totalCupones = cuponDAO.contarCuponesTotales();
+                int centrosPendientes = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "pendiente").size();
                 
                 // Establecer atributos para el JSP
                 request.setAttribute("usuariosActivos", usuariosActivos);
                 request.setAttribute("usuariosInactivos", usuariosInactivos);
-                request.setAttribute("centrosRegistrados", centrosRegistrados);
+                request.setAttribute("centrosRegistrados", centrosRegistrados); // This now represents active centers
                 request.setAttribute("totalCupones", totalCupones);
+                request.setAttribute("centrosPendientes", centrosPendientes); // New attribute for pending centers
             }
 
             // Redirigir a la JSP del perfil

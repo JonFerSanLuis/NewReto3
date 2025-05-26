@@ -33,46 +33,73 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/pages/admin-usuarios.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/pages/admin-usuarios.css">
+    <style>
+        /* Copied from admin-pending-centers.jsp for consistency, can be moved to a shared admin CSS file */
+        .header-simplified {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #f8f9fa; /* Or your header background color */
+            border-bottom: 1px solid #dee2e6; /* Optional border */
+        }
+        .header-simplified .logo img {
+            height: 40px; /* Adjust as needed */
+        }
+        .header-simplified .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .header-simplified .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+        .header-simplified .nav-links li a.active {
+            color: #007bff; /* Active link color */
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header-simplified"> <%-- Changed class to header-simplified --%>
         <div class="logo">
-            <a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
+            <a href="../index.jsp"><img src="../img/logo.png" alt="Logo"></a>
         </div>
         <nav class="nav-container">
             <ul class="nav-links">
-                <li><a href="informacion.jsp"><fmt:message key="menu.informacion" /></a></li>
-                <li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
-                <li><a href="comprarCupon.jsp"><fmt:message key="menu.comprarCupon" /></a></li>
-                <li><a href="AdminUsuarios?action=listar" <c:if test="${param.action == 'listar' || empty param.action}">class="active"</c:if>><fmt:message key="admin.titulo" /></a></li>
-                <li><a href="AdminUsuarios?action=listarPendientes" <c:if test="${param.action == 'listarPendientes'}">class="active"</c:if>><fmt:message key="admin.pendingCenters" /></a></li>
+                 <li><a href="../PerfilServlet"><fmt:message key="admin.backToDashboard" /></a></li>
+                 <li><a href="AdminUsuarios?action=listar" <c:if test="${param.action == 'listar' || empty param.action || (param.action == 'editar') || (param.action == 'detalles') }">class="active"</c:if>><fmt:message key="admin.manageUsers" /></a></li>
+                 <li><a href="AdminUsuarios?action=listarPendientes"><fmt:message key="admin.pendingCenters.title" /></a></li>
             </ul>
         </nav>
 
         <div class="right-section">
             <div class="idiomas">
-                <img src="img/idiomas.png" alt="Idiomas">
+                <img src="../img/idiomas.png" alt="Idiomas">
                 <ul class="idioma-menu">
-                    <li><a href="CambiarIdioma?idioma=es"><fmt:message key="idioma.espanol" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=en"><fmt:message key="idioma.ingles" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=eu"><fmt:message key="idioma.euskera" /></a></li>
+                    <li><a href="../CambiarIdioma?idioma=es&redirect=private/AdminUsuarios?action=${empty param.action ? 'listar' : param.action}${not empty param.id ? '&id=' : ''}${param.id}"><fmt:message key="idioma.espanol" /></a></li>
+                    <li><a href="../CambiarIdioma?idioma=en&redirect=private/AdminUsuarios?action=${empty param.action ? 'listar' : param.action}${not empty param.id ? '&id=' : ''}${param.id}"><fmt:message key="idioma.ingles" /></a></li>
+                    <li><a href="../CambiarIdioma?idioma=eu&redirect=private/AdminUsuarios?action=${empty param.action ? 'listar' : param.action}${not empty param.id ? '&id=' : ''}${param.id}"><fmt:message key="idioma.euskera" /></a></li>
                 </ul>
             </div>
             <%   if (username != null) { 
 			%>
-			        <a href="../perfil.jsp" class="btn">Perfil</a>
+			        <a href="../PerfilServlet" class="btn"><fmt:message key="menu.perfil" /></a>
 			<% 
 			    } else { 
 			%>
-			        <a href="../login.jsp" class="btn">Iniciar sesión</a>
+			        <a href="../login.jsp" class="btn"><fmt:message key="menu.iniciarSesion" /></a>
 			<% 
 			    } 
 			%>
             <%   if (username != null) { 
 			%>
-			        <a href="descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a>
+			        <a href="../private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a> <%-- Corrected path --%>
 			<% 
 			    } else { 
 			%>
@@ -174,59 +201,6 @@
                     </table>
                 </div>
             </section>
-
-            <!-- Sección de Centros Pendientes -->
-            <c:if test="${not empty listaCentrosPendientes}">
-                <section class="pending-centers-table-section">
-                    <h2 class="users-table-title"><fmt:message key="admin.centrosPendientes" /></h2>
-                    <div class="table-container">
-                        <table class="users-table">
-                            <thead>
-                                <tr>
-                                    <th><fmt:message key="admin.id" /></th>
-                                    <th><fmt:message key="admin.nombre" /></th>
-                                    <th><fmt:message key="admin.email" /></th>
-                                    <th><fmt:message key="admin.tipo" /></th>
-                                    <th><fmt:message key="admin.estado" /></th>
-                                    <th><fmt:message key="admin.fechaAlta" /></th>
-                                    <th><fmt:message key="admin.acciones" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="centro" items="${listaCentrosPendientes}">
-                                    <tr>
-                                        <td>${centro.idSuscriptor}</td>
-                                        <td>${centro.username}</td>
-                                        <td>${centro.correo}</td>
-                                        <td>${centro.tipo}</td>
-                                        <td>
-                                            <span class="status-badge status-pending">
-                                                ${centro.estado}
-                                            </span>
-                                        </td>
-                                        <td><fmt:formatDate value="${centro.fechaAlta}" pattern="dd/MM/yyyy" /></td>
-                                        <td class="actions">
-                                            <form action="AdminUsuarios" method="post" style="display: inline;">
-                                                <input type="hidden" name="action" value="aceptarCentro">
-                                                <input type="hidden" name="id" value="${centro.idSuscriptor}">
-                                                <button type="submit" class="action-btn accept-btn" title="<fmt:message key="admin.aceptar" />">
-                                                    <i class="fas fa-check"></i>
-                                                </button>
-                                            </form>
-                                            <button onclick="confirmarRechazar(${centro.idSuscriptor}, '${centro.username}')" class="action-btn reject-btn" title="<fmt:message key="admin.rechazar" />">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            </c:if>
-            <c:if test="${empty listaCentrosPendientes && param.action == 'listarPendientes'}">
-                <p><fmt:message key="admin.noCentrosPendientes" /></p>
-            </c:if>
             
         </div>
     </div>
@@ -248,29 +222,12 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación para rechazar centro -->
-    <div id="modal-rechazar" class="modal">
-        <div class="modal-content">
-            <span class="close-modal-rechazar">&times;</span>
-            <h2><fmt:message key="admin.confirmarRechazo" /></h2>
-            <p><fmt:message key="admin.confirmarRechazarCentro" /> <span id="nombre-centro-rechazar"></span>?</p>
-            <div class="modal-buttons">
-                <button id="btn-cancelar-rechazar" class="btn-secondary"><fmt:message key="admin.cancelar" /></button>
-                <form id="form-rechazar" action="AdminUsuarios" method="post">
-                    <input type="hidden" name="action" value="rechazarCentro">
-                    <input type="hidden" id="id-rechazar" name="id" value="">
-                    <button type="submit" class="btn-danger"><fmt:message key="admin.rechazar" /></button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="Logo Educación Divertida">
+                    <img src="../img/logo.png" alt="Logo Educación Divertida"> <%-- Corrected path --%>
                 </div>
                 <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
                 <div class="social-links">
@@ -341,27 +298,6 @@
         window.addEventListener('click', function(event) {
             if (event.target == document.getElementById('modal-eliminar')) {
                 document.getElementById('modal-eliminar').style.display = 'none';
-            }
-        });
-
-        // Script para el modal de confirmación de rechazo de centro
-        function confirmarRechazar(id, nombre) {
-            document.getElementById('id-rechazar').value = id;
-            document.getElementById('nombre-centro-rechazar').textContent = nombre;
-            document.getElementById('modal-rechazar').style.display = 'flex';
-        }
-
-        document.querySelector('.close-modal-rechazar').addEventListener('click', function() {
-            document.getElementById('modal-rechazar').style.display = 'none';
-        });
-
-        document.getElementById('btn-cancelar-rechazar').addEventListener('click', function() {
-            document.getElementById('modal-rechazar').style.display = 'none';
-        });
-
-        window.addEventListener('click', function(event) {
-            if (event.target == document.getElementById('modal-rechazar')) {
-                document.getElementById('modal-rechazar').style.display = 'none';
             }
         });
     </script>

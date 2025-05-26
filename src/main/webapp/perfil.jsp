@@ -34,7 +34,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><fmt:message key="admin.titulo" /></title>
+<title>Tu Perfil</title> <%-- Reverted --%>
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -157,13 +157,6 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 				<li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
 				<li><a href="comprarCupon.jsp"><fmt:message
 							key="menu.comprarCupon" /></a></li>
-				<%
-				if (userIsAdmin) {
-				%>
-				<li><a href="AdminUsuarios">Administrar Usuarios</a></li>
-				<%
-				}
-				%>
 			</ul>
 		</nav>
 
@@ -218,7 +211,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 	</header>
 
 	<div class="main-content">
-		<h1 class="page-title">Su Perfil</h1>
+		<h1 class="page-title">Su Perfil</h1> <%-- Reverted --%>
 
 		<!-- Mensajes de éxito o error -->
 		<c:if test="${not empty sessionScope.mensaje}">
@@ -236,7 +229,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 
 		<div class="admin-container">
 			<section class="search-section">
-				<h2 class="search-title">¡BIENVENIDO ${username}!</h2>
+				<h2 class="search-title">¡BIENVENIDO ${username}!</h2> <%-- Reverted --%>
 			</section>
 
 			<%
@@ -244,7 +237,7 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			%>
 			<!-- Panel de Administrador con estilos mejorados -->
 			<section class="admin-panel">
-				<h2 class="admin-panel-title">Panel de Administrador</h2>
+				<h2 class="admin-panel-title">Panel de Administrador</h2> <%-- Reverted --%>
 				
 				<!-- Tarjetas de información estilo AdminLTE -->
 				<div class="info-box-container">
@@ -253,14 +246,14 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 						<div class="info-box-content">
 							<div>
 								<div class="info-box-number">${usuariosActivos}</div>
-								<div class="info-box-text">Usuarios Activos</div>
+								<div class="info-box-text">Usuarios Activos</div> <%-- Reverted --%>
 							</div>
 						</div>
 						<div class="info-box-icon">
 							<i class="fas fa-user-check"></i>
 						</div>
 						<a href="AdminUsuarios?filtro=activos" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
+							Más información <i class="fas fa-arrow-circle-right"></i> <%-- Reverted --%>
 						</a>
 					</div>
 
@@ -269,30 +262,30 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 						<div class="info-box-content">
 							<div>
 								<div class="info-box-number">${usuariosInactivos}</div>
-								<div class="info-box-text">Usuarios Inactivos</div>
+								<div class="info-box-text">Usuarios Inactivos</div> <%-- Reverted --%>
 							</div>
 						</div>
 						<div class="info-box-icon">
 							<i class="fas fa-user-slash"></i>
 						</div>
 						<a href="AdminUsuarios?filtro=inactivos" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
+							Más información <i class="fas fa-arrow-circle-right"></i> <%-- Reverted --%>
 						</a>
 					</div>
 
-					<!-- Tarjeta 3: Centros Registrados -->
-					<div class="info-box bg-success">
+					<!-- Tarjeta 3: Centros Pendientes (antes Centros Registrados) -->
+					<div class="info-box bg-success"> <%-- Consider changing bg-success to bg-warning or another color if more appropriate for "pending" --%>
 						<div class="info-box-content">
 							<div>
-								<div class="info-box-number">${centrosRegistrados}</div>
-								<div class="info-box-text">Centros Registrados</div>
+								<div class="info-box-number">${centrosPendientes}</div>
+								<div class="info-box-text">Centros Pendientes</div> <%-- Reverted (key admin.dashboard.pendingCenters was used) --%>
 							</div>
 						</div>
 						<div class="info-box-icon">
-							<i class="fas fa-school"></i>
+							<i class="fas fa-hourglass-half"></i> <%-- Icon changed --%>
 						</div>
-						<a href="AdminUsuarios?filtro=centros" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
+						<a href="AdminUsuarios?action=listarPendientes" class="info-box-footer">
+							Más información <i class="fas fa-arrow-circle-right"></i> <%-- Reverted --%>
 						</a>
 					</div>
 
@@ -301,14 +294,14 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 						<div class="info-box-content">
 							<div>
 								<div class="info-box-number">${totalCupones}</div>
-								<div class="info-box-text">Cupones Totales</div>
+								<div class="info-box-text">Cupones Totales</div> <%-- Reverted --%>
 							</div>
 						</div>
 						<div class="info-box-icon">
 							<i class="fas fa-ticket-alt"></i>
 						</div>
 						<a href="comprarCupon.jsp" class="info-box-footer">
-							Más información <i class="fas fa-arrow-circle-right"></i>
+							Más información <i class="fas fa-arrow-circle-right"></i> <%-- Reverted --%>
 						</a>
 					</div>
 				</div>
@@ -316,10 +309,10 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 				<!-- Botones de administrador mejorados -->
 				<div class="admin-buttons-container">
 					<a href="AdminUsuarios" class="btn admin-btn admin-btn-usuarios">
-						<i class="fas fa-users-cog"></i> GESTIONAR USUARIOS
+						<i class="fas fa-users-cog"></i> GESTIONAR USUARIOS <%-- Reverted --%>
 					</a>
 					<a href="finalizar-ranking.jsp" class="btn admin-btn admin-btn-ranking">
-						<i class="fas fa-trophy"></i> FINALIZAR RANKING
+						<i class="fas fa-trophy"></i> FINALIZAR RANKING <%-- Reverted --%>
 					</a>
 				</div>
 			</section>
@@ -328,15 +321,15 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			%>
 			<!-- Mostrar la lista de cupones solo si NO es administrador -->
 			<section class="users-table-section">
-				<h2 class="users-table-title">Lista de cupones</h2>
+				<h2 class="users-table-title">Lista de cupones</h2> <%-- Reverted --%>
 				<div class="table-container">
 					<table class="users-table">
 						<thead>
 							<tr>
-								<th>TIPO</th>
-								<th>FECHA CADUCIDAD</th>
-								<th>ESTADO</th>
-								<th>DEVOLVER</th>
+								<th>TIPO</th> <%-- Reverted --%>
+								<th>FECHA CADUCIDAD</th> <%-- Reverted --%>
+								<th>ESTADO</th> <%-- Reverted --%>
+								<th>DEVOLVER</th> <%-- Reverted --%>
 							</tr>
 						</thead>
 						<tbody>
@@ -378,14 +371,14 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 
 			<div class="action-buttons">
 			    <form action="CerrarSesionServlet" method="post">
-			        <button type="submit" class="btn btn-logout">Cerrar Sesión</button>
+			        <button type="submit" class="btn btn-logout">Cerrar Sesión</button> <%-- Reverted --%>
 			    </form>
 			    
 			    <% if (!userIsAdmin) { %>
 			    <!-- Mostrar el botón de eliminar suscripción solo si NO es administrador -->
 			    <form id="eliminarForm" action="EliminarSuscripcionServlet" method="post">
 				    <input type="hidden" name="username" value="<%= username %>">
-				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Dar de baja</button>
+				    <button type="button" onclick="mostrarConfirmacion()" class="btn btn-danger">Dar de baja</button> <%-- Reverted --%>
 				</form>
 				<% } %>
 			</div>
@@ -393,11 +386,11 @@ boolean userIsAdmin = (isAdmin != null && isAdmin);
 			<!-- Menu confirmacion -->
 			<div id="simpleModal" class="simple-modal">
 			    <div class="simple-modal-content">
-			        <h3>Confirmar</h3>
-			        <p>¿Seguro que quieres darte de baja?</p>
+			        <h3>Confirmar</h3> <%-- Reverted --%>
+			        <p>¿Seguro que quieres darte de baja?</p> <%-- Reverted --%>
 			        <div class="simple-modal-buttons">
-			            <button id="simpleCancel" class="simple-modal-cancel">Cancelar</button>
-			            <button id="simpleConfirm" class="simple-modal-confirm">Eliminar</button>
+			            <button id="simpleCancel" class="simple-modal-cancel">Cancelar</button> <%-- Reverted --%>
+			            <button id="simpleConfirm" class="simple-modal-confirm">Eliminar</button> <%-- Reverted --%>
 			        </div>
 			    </div>
 			</div>

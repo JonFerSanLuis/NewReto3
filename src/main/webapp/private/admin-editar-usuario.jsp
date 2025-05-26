@@ -33,35 +33,64 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/pages/admin-usuarios.css">
+    <link rel="stylesheet" href="../css/global.css"> <%-- Corrected path --%>
+    <link rel="stylesheet" href="../css/pages/admin-usuarios.css"> <%-- Corrected path --%>
+    <style>
+        /* Copied from admin-pending-centers.jsp for consistency, can be moved to a shared admin CSS file */
+        .header-simplified {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #f8f9fa; /* Or your header background color */
+            border-bottom: 1px solid #dee2e6; /* Optional border */
+        }
+        .header-simplified .logo img {
+            height: 40px; /* Adjust as needed */
+        }
+        .header-simplified .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .header-simplified .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+        .header-simplified .nav-links li a.active {
+            color: #007bff; /* Active link color */
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header-simplified"> <%-- Changed class to header-simplified --%>
         <div class="logo">
-            <a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
+            <a href="../index.jsp"><img src="../img/logo.png" alt="Logo"></a>
         </div>
         <nav class="nav-container">
             <ul class="nav-links">
-                <li><a href="informacion.jsp"><fmt:message key="menu.informacion" /></a></li>
-                <li><a href="Ranking"><fmt:message key="menu.ranking" /></a></li>
-                <li><a href="comprarCupon.jsp"><fmt:message key="menu.comprarCupon" /></a></li>
-                <li><a href="AdminUsuarios" class="active"><fmt:message key="admin.titulo" /></a></li>
+                 <li><a href="../PerfilServlet"><fmt:message key="admin.backToDashboard" /></a></li>
+                 <li><a href="AdminUsuarios?action=listar" class="active"><fmt:message key="admin.manageUsers" /></a></li>
+                 <li><a href="AdminUsuarios?action=listarPendientes"><fmt:message key="admin.pendingCenters.title" /></a></li>
             </ul>
         </nav>
 
         <div class="right-section">
             <div class="idiomas">
-                <img src="img/idiomas.png" alt="Idiomas">
+                <img src="../img/idiomas.png" alt="Idiomas">
                 <ul class="idioma-menu">
-                    <li><a href="CambiarIdioma?idioma=es"><fmt:message key="idioma.espanol" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=en"><fmt:message key="idioma.ingles" /></a></li>
-                    <li><a href="CambiarIdioma?idioma=eu"><fmt:message key="idioma.euskera" /></a></li>
+                    <%-- Redirect should point to the current page with its parameters --%>
+                    <li><a href="../CambiarIdioma?idioma=es&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.espanol" /></a></li>
+                    <li><a href="../CambiarIdioma?idioma=en&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.ingles" /></a></li>
+                    <li><a href="../CambiarIdioma?idioma=eu&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.euskera" /></a></li>
                 </ul>
             </div>
             <%   if (username != null) { 
 			%>
-			        <a href="../perfil.jsp" class="btn">Perfil</a>
+			        <a href="../PerfilServlet" class="btn">Perfil</a> <%-- Corrected path --%>
 			<% 
 			    } else { 
 			%>
@@ -71,7 +100,7 @@
 			%>
             <%   if (username != null) { 
 			%>
-			        <a href="descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a>
+			        <a href="../private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a> <%-- Corrected path --%>
 			<% 
 			    } else { 
 			%>
@@ -155,7 +184,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="Logo Educación Divertida">
+                    <img src="../img/logo.png" alt="Logo Educación Divertida"> <%-- Corrected path --%>
                 </div>
                 <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
                 <div class="social-links">
