@@ -1,4 +1,20 @@
 /* Estilos espec√≠ficos para la p√°gina de informaci√≥n */
+body {
+  background-image: url('../../img/image1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+header.header {
+  position: fixed;    /* Fija el header en la parte superior */
+  top: 0;             /* Alineado arriba */
+  left: 0;            /* Alineado a la izquierda */
+  width: 100%;        /* Que ocupe todo el ancho */
+  z-index: 1000;      /* Para que estÈ encima de otros elementos */
+  background-color:  #333; /* AÒadir fondo para que no sea transparente */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Opcional: sombra para destacarlo */
+}
 .info-container {
   display: flex;
   flex-direction: column;
