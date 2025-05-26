@@ -36,6 +36,9 @@ public class AdminUsuariosServlet extends HttpServlet {
             case "detalles":
                 mostrarDetallesUsuario(request, response);
                 break;
+            case "listarPendientes":
+                listarCentrosPendientes(request, response);
+                break;
             default:
                 listarUsuarios(request, response);
                 break;
@@ -55,6 +58,12 @@ public class AdminUsuariosServlet extends HttpServlet {
                 break;
             case "eliminar":
                 eliminarUsuario(request, response);
+                break;
+            case "aceptarCentro":
+                aceptarCentro(request, response);
+                break;
+            case "rechazarCentro":
+                rechazarCentro(request, response);
                 break;
             default:
                 listarUsuarios(request, response);
@@ -83,6 +92,12 @@ public class AdminUsuariosServlet extends HttpServlet {
         }
         
         request.setAttribute("listaUsuarios", usuarios);
+        request.getRequestDispatcher("private/admin-usuarios.jsp").forward(request, response);
+    }
+    
+    private void listarCentrosPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Suscriptor> centrosPendientes = suscriptorDAO.getSuscriptoresByTipoAndEstado("centro", "pendiente");
+        request.setAttribute("listaCentrosPendientes", centrosPendientes);
         request.getRequestDispatcher("private/admin-usuarios.jsp").forward(request, response);
     }
     
@@ -175,5 +190,44 @@ public class AdminUsuariosServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             response.sendRedirect("AdminUsuarios");
         }
+    }
+    
+    private void aceptarCentro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            Suscriptor suscriptor = suscriptorDAO.getSuscriptorById(id);
+            
+            if (suscriptor != null) {
+                suscriptor.setEstado("activo");
+                boolean actualizado = suscriptorDAO.updateSuscriptor(suscriptor);
+                
+                if (actualizado) {
+                    request.getSession().setAttribute("mensaje", "Centro aceptado correctamente.");
+                } else {
+                    request.getSession().setAttribute("error", "Error al aceptar el centro.");
+                }
+            } else {
+                request.getSession().setAttribute("error", "Centro no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("error", "ID de centro inválido.");
+        }
+        response.sendRedirect("AdminUsuarios?action=listarPendientes");
+    }
+    
+    private void rechazarCentro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            boolean eliminado = suscriptorDAO.deleteSuscriptor(id);
+            
+            if (eliminado) {
+                request.getSession().setAttribute("mensaje", "Centro rechazado correctamente.");
+            } else {
+                request.getSession().setAttribute("error", "Error al rechazar el centro.");
+            }
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("error", "ID de centro inválido.");
+        }
+        response.sendRedirect("AdminUsuarios?action=listarPendientes");
     }
 }
