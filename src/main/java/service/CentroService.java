@@ -1,7 +1,6 @@
 package service;
 
 import java.sql.SQLException;
-
 import com.bilbaoskp.dao.CentroDAO;
 import com.bilbaoskp.model.Centro;
 
@@ -20,5 +19,9 @@ public class CentroService {
 			e.printStackTrace();
 		}
 		return false;
+    }
+
+    public Centro getCentroByName(String name) throws SQLException {
+    	return centroDao.obtenerCentroPorNombre(name);
     }
 }
