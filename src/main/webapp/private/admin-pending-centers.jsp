@@ -32,8 +32,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/pages/admin-usuarios.css"> <%-- Reusing admin-usuarios.css for now --%>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/pages/admin-usuarios.css"> <%-- Reusing admin-usuarios.css for now --%>
     <style>
         /* Additional styles specific to this page if needed */
         .header-simplified {
