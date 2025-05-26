@@ -74,7 +74,6 @@ public class CentroDAO {
                 psCen.setString(8, centro.getTelefono());
 
                 if (psCen.executeUpdate() != 1) {
-                    throw new SQLException("No se pudo insertar en centros");
                 }
             }
 
@@ -93,6 +92,31 @@ public class CentroDAO {
                 try (Connection con = AccesoBD.getConnection();
                      PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setInt(1, codCentro);  // Establece el valor del parámetro codCentro
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            centro = new Centro();
+                            centro.setCodCentro(rs.getInt("cod_centro"));
+                            centro.setNombre(rs.getString("nombre"));
+                            centro.setResponsable(rs.getString("responsable"));
+                            centro.setTipoCentro(rs.getString("tipo_suscriptor"));
+                            centro.setNumAlumnos(rs.getInt("num_alumnos"));
+                            centro.setEmail(rs.getString("email"));
+                            centro.setTelefono(rs.getString("telefono"));
+                            centro.setIdSuscriptor(rs.getInt("id_suscriptor"));
+                        }
+                    }
+                }
+
+                return centro;
+            }
+            
+            public Centro obtenerCentroPorNombre(String name) throws SQLException {
+                String sql = "SELECT * FROM centros WHERE responsable = ?";
+                Centro centro = null;
+
+                try (Connection con = AccesoBD.getConnection();
+                     PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.setString(1, name);  // Establece el valor del parámetro codCentro
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
                             centro = new Centro();

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.bilbaoskp.model.Centro;
+
 import service.CentroService;
 import service.SuscriptorService;
 
@@ -58,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    String username = request.getParameter("usuario");
 	    String password = request.getParameter("password");
+	    String tipoUser = suscriptorService.getSuscriptorByNombreService(username).getTipo();
 	    
 	    if (suscriptorService.login(username, password)) {
 	        // Verificar si el usuario es administrador
@@ -71,10 +74,21 @@ public class LoginServlet extends HttpServlet {
 	        
 	        // Agregar la cookie a la respuesta
 	        response.addCookie(cookie);
+
+	        Cookie cookieType = new Cookie("tipo", tipoUser);
+
+	        cookieType.setPath("/");
+	        cookie.setPath("/");
+	        
+	        // Agregar la cookie a la respuesta
+	        response.addCookie(cookie);
+	        response.addCookie(cookieType);
 	        
 	        HttpSession session = request.getSession(true); // Crea una nueva sesión
 	        session.setAttribute("username", username);
 	        session.setAttribute("isAdmin", isAdmin); // Guardar si es admin en la sesión
+	        
+	        
 	        
 	        // Redirigir al perfil
 	        response.sendRedirect("PerfilServlet");
