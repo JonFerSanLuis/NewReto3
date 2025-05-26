@@ -116,7 +116,7 @@ public class AltaSuscriptor extends HttpServlet {
 	    // Crear al responsable como suscriptor
 	    Suscriptor s = new Suscriptor();
 	    s.setUsername(responsable);
-	    s.setEstado("estado");
+	    s.setEstado("pendiente");
 	    s.setFechaAlta(new Date(System.currentTimeMillis()));
 	    s.setTipo("responsable");
 	    s.setPassword(password);
