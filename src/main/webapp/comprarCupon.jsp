@@ -179,6 +179,12 @@
 									key="cupon.seleccioneCupon" /></option>
 							<option value="SOLEDAD"><fmt:message key="cupon.basico" />
 								- 1.50€
+							</option>			
+							<option value="MIL Y UN PREGUNTAS"><fmt:message
+									key="cupon.estandar" /> - 2.50€
+							</option>
+							<option value="LA ULTIMA SANGRE"><fmt:message
+									key="cupon.premium" /> - 2.50€
 							</option>
 						</select>
 					</div>
