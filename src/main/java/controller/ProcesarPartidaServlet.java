@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -18,7 +19,6 @@ import com.bilbaoskp.model.Partida;
 
 @WebServlet("/ProcesarPartidaServlet")
 public class ProcesarPartidaServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,68 +32,60 @@ public class ProcesarPartidaServlet extends HttpServlet {
         }
 
         try {
-            // 1. Recoger parámetros del formulario
             String nombreClase = request.getParameter("nombreClase");
             String escenario = request.getParameter("escenario");
             String idioma = request.getParameter("idioma");
             String fechaStr = request.getParameter("fechaActivacion");
+            
+            if (nombreClase == null || escenario == null || idioma == null || fechaStr == null) {
+                response.sendRedirect("organizarPartida.jsp?error=faltanParametros");
+                return;
+            }
 
             Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStr);
 
-            // 2. Crear la partida
             Partida partida = new Partida();
             partida.setNombre(nombreClase);
             partida.setTipoPartida(escenario);
             partida.setIdioma(idioma);
             partida.setFecha(fecha);
-
-            // 3. Guardar la partida
+            
             PartidaDAO partidaDAO = new PartidaDAO();
             boolean guardado = partidaDAO.guardarPartida(partida, centro.getCodCentro());
 
-            // 4. Generar código de acceso
+            if (!guardado) {
+                response.sendRedirect("organizarPartida.jsp?error=guardar");
+                return;
+            }
+            
+            // código de acceso
             String codigoAcceso = generarCodigo();
 
-            if (guardado) {
-                // 5. Enviar correo
-                String asunto = "Código de acceso - Escape Room contra el Ciberbullying";
-                String mensaje = "Hola " + centro.getResponsable() + ",\n\n"
-                        + "La partida ha sido registrada exitosamente.\n"
-                        + "Código de acceso: " + codigoAcceso + "\n\n"
-                        + "Nombre de la clase: " + nombreClase + "\n"
-                        + "Escenario: " + escenario + "\n"
-                        + "Idioma: " + idioma + "\n"
-                        + "Fecha de activación: " + fechaStr + "\n\n"
-                        + "Gracias por participar.";
+                // envair correo
+            String asunto = "Código de acceso - Escape Room contra el Ciberbullying";
+            String mensaje = String.format(
+                "Hola %s,\n\nLa partida ha sido registrada exitosamente.\n\nCódigo de acceso: %s\nClase: %s\nEscenario: %s\nIdioma: %s\nFecha: %s\n\nGracias por participar.",
+                centro.getResponsable(), codigoAcceso, nombreClase, escenario, idioma, fechaStr
+            );
 
-                SendMesagge.enviarEmail(centro.getEmail(), asunto, mensaje);
+            SendMesagge.enviarEmail(centro.getEmail(), asunto, mensaje);
+            
+            response.sendRedirect("confirmacionPartida.jsp?codigo=" + codigoAcceso);
 
-                // 6. Redirigir al JSP de confirmación
-                response.sendRedirect("confirmacionPartida.jsp?codigo=" + codigoAcceso);
-            } else {
-                response.sendRedirect("organizarPartida.jsp?error=guardar");
-            }
-
+        } catch (ParseException e) {
+            e.printStackTrace();
+            response.sendRedirect("organizarPartida.jsp?error=formatoFecha");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("organizarPartida.jsp?error=exception");
+            response.sendRedirect("organizarPartida.jsp?error=general");
         }
     }
 
-    // Método para generar código aleatorio
     private String generarCodigo() {
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String numeros = "0123456789";
-        Random random = new Random();
-        StringBuilder codigo = new StringBuilder();
-
-        for (int i = 0; i < 3; i++) {
-            codigo.append(letras.charAt(random.nextInt(letras.length())));
-        }
-        for (int i = 0; i < 3; i++) {
-            codigo.append(numeros.charAt(random.nextInt(numeros.length())));
-        }
-
-        return codigo.toString();
+        Random r = new Random();
+        return "" + letras.charAt(r.nextInt(26)) + letras.charAt(r.nextInt(26)) + letras.charAt(r.nextInt(26))
+                   + numeros.charAt(r.nextInt(10)) + numeros.charAt(r.nextInt(10)) + numeros.charAt(r.nextInt(10));
     }
 }
