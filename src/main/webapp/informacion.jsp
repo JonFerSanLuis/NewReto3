@@ -139,66 +139,6 @@
                 </div>
             </section>
 
-          <section class="team-section">
-    <h2 class="section-title"><fmt:message key="info.equipo" /></h2>
-    <div class="team-grid">
-        <div class="team-card">
-            <a href="img/Cv_Erlantz.png" target="_blank">
-                <div class="team-image">
-                    <img src="img/Erlantz.png" alt="foto Erlantz">
-                </div>
-            </a>
-            <h3 class="team-name">Erlantz Tolentino</h3>
-            <p class="team-role">Desarrollador Web</p>
-            <p class="team-bio">Especialista en el desarrollo de aplicaciones interactivas, responsable de la arquitectura técnica del juego.</p>
-        </div>
-
-        <div class="team-card">
-            <a href="img/curriculumJon.png" target="_blank">
-                <div class="team-image">
-                    <img src="img/Jon.png" alt="foto Jon">
-                </div>
-            </a>
-            <h3 class="team-name">Jon Fernandez</h3>
-            <p class="team-role">Desarrollador Web</p>
-            <p class="team-bio">Con más de 10 años de experiencia en desarrollo de juegos, lidera nuestro equipo con pasión e innovación.</p>
-        </div>
-
-        <div class="team-card">
-            <a href="img/curriculum%20josue.jpeg" target="_blank">
-                <div class="team-image">
-                    <img src="img/Josue.png" alt="foto Josue">
-                </div>
-            </a>
-            <h3 class="team-name">Josue Mateo</h3>
-            <p class="team-role">Desarrollador Web</p>
-            <p class="team-bio">Josue combina creatividad y funcionalidad para diseñar interfaces intuitivas y atractivas.</p>
-        </div>
-
-        <div class="team-card">
-            <a href="img/Currículum%20Deiner.pdf" target="_blank">
-                <div class="team-image">
-                    <img src="img/Deiner2.png" alt="foto Deiner">
-                </div>
-            </a>
-            <h3 class="team-name">Deiner Uyuquipa</h3>
-            <p class="team-role">Desarrollador Web</p>
-            <p class="team-bio">Deiner crea contenido educativo y misiones que enriquecen la experiencia del juego.</p>
-        </div>
-
-        <div class="team-card">
-            <a href="img/CV_Aldo.png" target="_blank">
-                <div class="team-image">
-                    <img src="img/Aldo.png" alt="foto Aldo">
-                </div>
-            </a>
-            <h3 class="team-name">Aldo</h3>
-            <p class="team-role">Desarrollador Web</p>
-            <p class="team-bio">Aldo desarrolla contenido educativo y misiones que hacen del juego una experiencia enriquecedora.</p>
-        </div>
-    </div>
-</section>
-
             <section class="contact-section">
                 <h2 class="section-title"><fmt:message key="info.contacto" /></h2>
                 <form class="contact-form">
