@@ -91,13 +91,16 @@
 
     <div class="main-content">
         <div class="auth-container">
-            <div class="auth-image">
-                <div class="auth-image-content">
-                    <h2 class="auth-image-title"><fmt:message key="login.bienvenido" /></h2>
-                    <p class="auth-image-text"><fmt:message key="login.bienvenidoDesc" /></p>
-                    <a href="#" class="btn" style="margin-top: 15px; background-color: white; color: #333;"><fmt:message key="login.conoceMas" /></a>
-                </div>
-            </div>
+           <div class="auth-image">
+    <div class="auth-image-content">
+        <h2 class="auth-image-title"><fmt:message key="login.bienvenido" /></h2>
+        <p class="auth-image-text"><fmt:message key="login.bienvenidoDesc" /></p>
+        <a href="#" class="btn" style="margin-top:15px;background-color:white;color:#333;">
+            <fmt:message key="login.conoceMas"/>
+        </a>
+    </div>
+</div>
+
             <div class="auth-forms">
                 <div class="auth-form active">
                     <h2 class="form-title"><fmt:message key="login.titulo" /></h2>
