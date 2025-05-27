@@ -1,4 +1,13 @@
 /* Estilos específicos para la página de suscripción */
+
+body {
+    background-image: url("../../img/imagenFondo.png");
+    background-size: cover;                   
+    background-repeat: no-repeat;             
+    background-attachment: fixed;             
+    background-position: center center;       
+    min-height: 100vh;                       
+}
 .main-content {
   max-width: 1200px;
   margin: 40px auto;
@@ -19,8 +28,21 @@
 
 .auth-image {
   flex: 1;
-  background-image: url("https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("../../img/cofre.png");
   background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  position: relative;
+}
+
+.auth-image2 {
+  flex: 1;
+  background-image: url("../../img/imagenpuerta.jpg");
+  background-size: 106%;
+  background-repeat: no-repeat;
   background-position: center;
   display: flex;
   flex-direction: column;
@@ -280,15 +302,15 @@
 
 /* ======== NUEVO: Estilos del selector de idioma ======== */
 .idioma-menu a {
-  color: white;               /* Letras blancas */
-  text-decoration: none;      /* Sin subrayado */
-  padding: 8px 12px;           /* Espaciado bonito */
-  display: block;              /* Toda la línea clickable */
+  color: white;              
+  text-decoration: none;      
+  padding: 8px 12px;           
+  display: block;              
 }
 
 .idioma-menu a:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Fondo blanquito suave */
-  text-decoration: none;                      /* Sin subrayado en hover */
-  color: white;                               /* Letra sigue blanca */
-  border-radius: 5px;                         /* Bordes redondeados */
+  background-color: rgba(255, 255, 255, 0.2); 
+  text-decoration: none;                      
+  color: white;                              
+  border-radius: 5px;                        
 }

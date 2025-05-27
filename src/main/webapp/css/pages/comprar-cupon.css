@@ -1,3 +1,11 @@
+body {
+    background-image: url("../../img/imagenFondo.png");
+    background-size: cover;                   
+    background-repeat: no-repeat;             
+    background-attachment: fixed;            
+    background-position: center center;       
+    min-height: 100vh;                       
+}
 .cupon-container {
   display: flex;
   flex-direction: column;

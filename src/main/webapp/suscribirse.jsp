@@ -93,7 +93,7 @@
 
     <div class="main-content">
         <div class="auth-container">
-            <div class="auth-image">
+            <div class="auth-image2">
                 <div class="auth-image-content">
                     <h2 class="auth-image-title"><fmt:message key="suscribirse.unete" /></h2>
                     <p class="auth-image-text"><fmt:message key="suscribirse.uneteDesc" /></p>
