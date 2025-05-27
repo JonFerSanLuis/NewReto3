@@ -71,8 +71,7 @@ public class CentroDAO {
             
             public Centro obtenerCentroPorNombre(String name) throws SQLException {
                 String sql = "SELECT * FROM centros WHERE responsable = ?";
-                Centro centro = null;
-
+                Centro centro = new Centro();
                 try (Connection con = AccesoBD.getConnection();
                      PreparedStatement ps = con.prepareStatement(sql)) {
                     ps.setString(1, name);  // Establece el valor del parámetro codCentro
