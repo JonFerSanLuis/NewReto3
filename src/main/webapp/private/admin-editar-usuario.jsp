@@ -33,46 +33,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/global.css"> <%-- Corrected path --%>
-    <link rel="stylesheet" href="../css/pages/admin-usuarios.css"> <%-- Corrected path --%>
-    <style>
-        /* Copied from admin-pending-centers.jsp for consistency, can be moved to a shared admin CSS file */
-        .header-simplified {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #f8f9fa; /* Or your header background color */
-            border-bottom: 1px solid #dee2e6; /* Optional border */
-        }
-        .header-simplified .logo img {
-            height: 40px; /* Adjust as needed */
-        }
-        .header-simplified .nav-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-        .header-simplified .nav-links li a {
-            text-decoration: none;
-            color: #333;
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-        }
-        .header-simplified .nav-links li a.active {
-            color: #007bff; /* Active link color */
-        }
-    </style>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/pages/admin-usuarios.css">
 </head>
 <body>
-    <header class="header-simplified"> <%-- Changed class to header-simplified --%>
+    <header class="header">
         <div class="logo">
-            <a href="../index.jsp"><img src="../img/logo.png" alt="Logo"></a>
+            <a href="index.jsp"><img src="img/logo.png" alt="Logo"></a>
         </div>
         <nav class="nav-container">
             <ul class="nav-links">
-                 <li><a href="../PerfilServlet"><fmt:message key="admin.backToDashboard" /></a></li>
+                 <li><a href="PerfilServlet"><fmt:message key="admin.backToDashboard" /></a></li>
                  <li><a href="AdminUsuarios?action=listar" class="active"><fmt:message key="admin.manageUsers" /></a></li>
                  <li><a href="AdminUsuarios?action=listarPendientes"><fmt:message key="admin.pendingCenters.title" /></a></li>
             </ul>
@@ -80,31 +51,22 @@
 
         <div class="right-section">
             <div class="idiomas">
-                <img src="../img/idiomas.png" alt="Idiomas">
+                <img src="img/idiomas.png" alt="Idiomas">
                 <ul class="idioma-menu">
-                    <%-- Redirect should point to the current page with its parameters --%>
-                    <li><a href="../CambiarIdioma?idioma=es&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.espanol" /></a></li>
-                    <li><a href="../CambiarIdioma?idioma=en&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.ingles" /></a></li>
-                    <li><a href="../CambiarIdioma?idioma=eu&redirect=private/admin-editar-usuario.jsp%3Faction=editar%26id=${usuario.idSuscriptor}"><fmt:message key="idioma.euskera" /></a></li>
+                    <li><a href="CambiarIdioma?idioma=es&redirect=AdminUsuarios?action=editar&id=${usuario.idSuscriptor}"><fmt:message key="idioma.espanol" /></a></li>
+                    <li><a href="CambiarIdioma?idioma=en&redirect=AdminUsuarios?action=editar&id=${usuario.idSuscriptor}"><fmt:message key="idioma.ingles" /></a></li>
+                    <li><a href="CambiarIdioma?idioma=eu&redirect=AdminUsuarios?action=editar&id=${usuario.idSuscriptor}"><fmt:message key="idioma.euskera" /></a></li>
                 </ul>
             </div>
             <%   if (username != null) { 
 			%>
-			        <a href="../PerfilServlet" class="btn">Perfil</a> <%-- Corrected path --%>
+			        <a href="PerfilServlet" class="btn">Perfil</a>
+			        <a href="private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a>
+			        <a href="CerrarSesionServlet" class="btn btn-logout">Cerrar Sesión</a>
 			<% 
 			    } else { 
 			%>
-			        <a href="../login.jsp" class="btn">Iniciar sesión</a>
-			<% 
-			    } 
-			%>
-            <%   if (username != null) { 
-			%>
-			        <a href="../private/descargarJuego.jsp" class="btn"><fmt:message key="menu.descargar" /></a> <%-- Corrected path --%>
-			<% 
-			    } else { 
-			%>
-			        <!-- No se muestra el botón descargar si no hay cookie -->
+			        <a href="login.jsp" class="btn">Iniciar sesión</a>
 			<% 
 			    } 
 			%>
@@ -113,6 +75,20 @@
 
     <div class="main-content">
         <h1 class="page-title"><fmt:message key="admin.editarUsuario" /></h1>
+
+        <!-- Mensajes de éxito o error -->
+        <c:if test="${not empty sessionScope.mensaje}">
+            <div class="alert alert-success">
+                ${sessionScope.mensaje}
+                <c:remove var="mensaje" scope="session" />
+            </div>
+        </c:if>
+        <c:if test="${not empty sessionScope.error}">
+            <div class="alert alert-danger">
+                ${sessionScope.error}
+                <c:remove var="error" scope="session" />
+            </div>
+        </c:if>
 
         <div class="admin-container">
             <section class="edit-section">
@@ -149,6 +125,7 @@
                             <select id="estado" name="estado" required>
                                 <option value="activo" ${usuario.estado == 'activo' ? 'selected' : ''}><fmt:message key="admin.estadoActivo" /></option>
                                 <option value="inactivo" ${usuario.estado == 'inactivo' ? 'selected' : ''}><fmt:message key="admin.estadoInactivo" /></option>
+                                <option value="pendiente" ${usuario.estado == 'pendiente' ? 'selected' : ''}><fmt:message key="admin.estadoPendiente" /></option>
                                 <option value="suspendido" ${usuario.estado == 'suspendido' ? 'selected' : ''}><fmt:message key="admin.estadoSuspendido" /></option>
                             </select>
                         </div>
@@ -166,13 +143,18 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="nueva-password"><fmt:message key="admin.nuevaPassword" /></label>
-                        <input type="password" id="nueva-password" name="nuevaPassword" placeholder="********">
+                        <label for="password"><fmt:message key="admin.nuevaPassword" /></label>
+                        <input type="password" id="password" name="password" placeholder="Dejar en blanco para mantener la actual">
+                        <small class="form-text">Solo completa este campo si deseas cambiar la contraseña</small>
                     </div>
                     
                     <div class="form-actions">
-                        <a href="AdminUsuarios" class="btn-secondary"><fmt:message key="admin.volver" /></a>
-                        <button type="submit" class="btn-primary"><fmt:message key="admin.guardarCambios" /></button>
+                        <a href="AdminUsuarios" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i> <fmt:message key="admin.volver" />
+                        </a>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> <fmt:message key="admin.guardarCambios" />
+                        </button>
                     </div>
                 </form>
             </section>
@@ -184,7 +166,7 @@
         <div class="footer-container">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="../img/logo.png" alt="Logo Educación Divertida"> <%-- Corrected path --%>
+                    <img src="img/logo.png" alt="Logo Educación Divertida">
                 </div>
                 <p class="footer-description"><fmt:message key="footer.descripcion" /></p>
                 <div class="social-links">
@@ -198,11 +180,9 @@
             <div class="footer-section">
                 <h3 class="footer-title"><fmt:message key="footer.enlacesRapidos" /></h3>
                 <ul class="footer-links">
-                    <li><a href="#"><fmt:message key="footer.sobreNosotros" /></a></li>
-                    <li><a href="#"><fmt:message key="footer.nuestrosCursos" /></a></li>
-                    <li><a href="#"><fmt:message key="footer.testimonios" /></a></li>
-                    <li><a href="#"><fmt:message key="footer.blogEducativo" /></a></li>
-                    <li><a href="#"><fmt:message key="footer.preguntasFrecuentes" /></a></li>
+                    <li><a href="index.jsp">Inicio</a></li>
+                    <li><a href="informacion.jsp"><fmt:message key="footer.sobreNosotros" /></a></li>
+                    <li><a href="contacto-exito.jsp">Contacto</a></li>
                 </ul>
             </div>
 
@@ -227,13 +207,40 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const idiomas = document.querySelector('.idiomas');
-            document.addEventListener('click', function(e) {
-                if (idiomas.contains(e.target)) {
-                    idiomas.classList.toggle('activo');
-                } else {
-                    idiomas.classList.remove('activo');
-                }
-            });
+            if (idiomas) {
+                document.addEventListener('click', function(e) {
+                    if (idiomas.contains(e.target)) {
+                        idiomas.classList.toggle('activo');
+                    } else {
+                        idiomas.classList.remove('activo');
+                    }
+                });
+            }
+        });
+
+        // Validación del formulario
+        document.querySelector('.edit-form').addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            
+            if (!username) {
+                alert('El nombre de usuario es obligatorio');
+                e.preventDefault();
+                return;
+            }
+            
+            if (!correo) {
+                alert('El correo electrónico es obligatorio');
+                e.preventDefault();
+                return;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(correo)) {
+                alert('Por favor, introduce un correo electrónico válido');
+                e.preventDefault();
+                return;
+            }
         });
     </script>
 </body>

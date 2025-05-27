@@ -116,9 +116,9 @@ public class AltaSuscriptor extends HttpServlet {
 	    // Crear al responsable como suscriptor
 	    Suscriptor s = new Suscriptor();
 	    s.setUsername(responsable);
-	    s.setEstado("estado");
+	    s.setEstado("pendiente");
 	    s.setFechaAlta(new Date(System.currentTimeMillis()));
-	    s.setTipo("responsable");
+	    s.setTipo("centro");
 	    s.setPassword(password);
 	    s.setCorreo(email);
 	    s.setEdad(0);
@@ -145,7 +145,7 @@ public class AltaSuscriptor extends HttpServlet {
 	        Date fechaCaducidad = new Date(calendar.getTimeInMillis());
 
 	        c.setFechaCaducidad(fechaCaducidad);
-	        c.setEstado("disponible");
+	        c.setEstado("pendiente");
 
 	        CuponService cup = new CuponService();
 	        cup.asignarCuponService(c);
