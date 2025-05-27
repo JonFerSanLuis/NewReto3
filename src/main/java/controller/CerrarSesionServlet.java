@@ -28,6 +28,10 @@ public class CerrarSesionServlet extends HttpServlet {
                     cookie.setMaxAge(0);
                     cookie.setPath("/");
                     response.addCookie(cookie);
+                }else if ("tipo".equals(cookie.getName())) {
+                	cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
                 }
             }
         }
