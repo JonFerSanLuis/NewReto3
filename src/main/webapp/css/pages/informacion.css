@@ -7,13 +7,13 @@ body {
   background-position: center;
 }
 header.header {
-  position: fixed;    /* Fija el header en la parte superior */
-  top: 0;             /* Alineado arriba */
-  left: 0;            /* Alineado a la izquierda */
-  width: 100%;        /* Que ocupe todo el ancho */
-  z-index: 1000;      /* Para que esté encima de otros elementos */
-  background-color:  #333; /* Añadir fondo para que no sea transparente */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Opcional: sombra para destacarlo */
+  position: fixed;    
+  top: 0;             
+  left: 0;            
+  width: 100%;        
+  z-index: 1000;      
+  background-color:  #333; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 .info-container {
   display: flex;
