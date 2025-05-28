@@ -270,6 +270,22 @@
                 }
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector(".header");
+
+            function toggleHeader() {
+                if (window.scrollY > 50) {
+                    header.classList.remove("transparent");
+                    header.classList.add("solid");
+                } else {
+                    header.classList.remove("solid");
+                    header.classList.add("transparent");
+                }
+            }
+
+            toggleHeader(); // Ejecutar al cargar
+            window.addEventListener("scroll", toggleHeader);
+        });
     </script>
 </body>
 </html>
