@@ -28,16 +28,17 @@ public class ProcesarPartidaServlet extends HttpServlet {
             throws ServletException, IOException {
     	
     	Cookie[] cookies = request.getCookies();
-    	String valor = null;
+    	String username = null;
+    	String cookieType = null;
     	if (cookies != null) {
     	    for (Cookie cookie : cookies) {
     	        if ("usuario".equals(cookie.getName())) {
-    	            valor = cookie.getValue();
-    	            break;
+    	            username = cookie.getValue();
+    	        }else if ("tipo".equals(cookie.getName())) {
+    	        	cookieType = cookie.getValue();
     	        }
     	    }
     	}
-    	System.out.println(valor);
     	
     }
 
